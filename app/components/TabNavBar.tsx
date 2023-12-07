@@ -9,6 +9,10 @@ const TabNavBar = () => {
     const rightBtnRef = useRef<HTMLButtonElement>(null);
     const [isAtStart, setIsAtStart] = useState(true);
     const [isAtEnd, setIsAtEnd] = useState(false);
+
+    const categories:string[] = ['All', 'Recommended', 'Actions', 'Drama', 'Mystery', 'Western', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War'];
+    const [activeCategory, setActiveCategory] = useState(categories[0]); // Default to the first category
+
     const IconVisibility = () => {
         if (tabMenuRef.current) {
             const { scrollLeft, scrollWidth, clientWidth } = tabMenuRef.current;
@@ -42,6 +46,10 @@ const TabNavBar = () => {
         }
     }
 
+    const handleCategoryClick = (category:string) => {
+        setActiveCategory(category);
+    };
+
     return (
         <div className='tab-nav-bar'>
             <div className='tab-navigation'>
@@ -56,39 +64,13 @@ const TabNavBar = () => {
                             <ChevronRightIcon className='icon right-btn' height="32" width="32" />
                         </button>
                     )}
-                    <li className='tab-item clicked'>
-                        All
-                    </li>
-                    <li className='tab-item'>
-                        Recommended
-                    </li>
-                    <li className='tab-item'>
-                        Actions
-                    </li>
-                    <li className='tab-item'>
-                        Drama
-                    </li>
-                    <li className='tab-item'>
-                        Mystery
-                    </li>
-                    <li className='tab-item'>
-                        Western
-                    </li>
-                    <li className='tab-item'>
-                        Western
-                    </li>
-                    <li className='tab-item'>
-                        Western
-                    </li>
-                    <li className='tab-item'>
-                        Western
-                    </li>
-                    <li className='tab-item'>
-                        Western
-                    </li>
-                    <li className='tab-item'>
-                        Western
-                    </li>
+                    {
+                        categories.map(category => (
+                            <li className={`tab-item ${category==activeCategory ? 'clicked' : ''}`} key={category} onClick={() => handleCategoryClick(category)}>
+                                {category}
+                            </li>
+                        ))
+                    }
                 </ul>
             </div>
         </div>

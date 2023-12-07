@@ -136,11 +136,10 @@ body {
 /* Tab navigation bar */
 .tab-menu {
     list-style: none;
-    background: var(--cGray);
-    max-width: 50rem;
+    background: var(--cDark);
+    max-width: 60rem;
     padding: 0.625rem;
     white-space: nowrap;
-    border-bottom: 1px solid var(--cPink);
     border-radius: 50px;
     box-shadow: var(--box-shadow);
     overflow-x: auto;
@@ -151,27 +150,26 @@ body {
 }
 .tab-item {
     border-radius:30px;
-    border: 1px solid var(--cPink);
+    background: var(--cGray);
+    border: 1px solid var(--cGray);
     display:inline-block;
     color: var(--cWhite);
-    font-size: 1rem;
+    font-size: smaller;
     font-weight: 400;
-    padding: 10px 20px;
-    margin: 0 2px;
-    background: var(--cDark);
+    padding: 5px 10px;
+    margin: 0 5px;
     user-select: none;
     transition:0.3s ease;
 
 }
 .tab-item.clicked {
     background: var(--cPink);
+    border: 1px solid var(--cPink);
 }
 .tab-item:hover {
-    background: var(--cGray);
+    background: var(--cPink);
+    border: 1px solid var(--cPink);
     cursor: pointer;
-}
-.tab-nav-bar {
-    position: relative;
 }
 .tab-navigation {
     position: relative;
@@ -182,14 +180,15 @@ body {
 }
 .tab-nav-bar {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 4rem;
 }
 .left-btn,.right-btn {
     position: absolute;
     cursor: pointer;
 }
 .left-btn {
-    top:15px;
+    top:10px;
     left:-30px;
     background: linear-gradient(to left, transparent, var(--cGray), 80%);
 }
@@ -197,7 +196,7 @@ body {
     display: none;
 }
 .right-btn {
-    top:15px;
+    top:10px;
     right:-30px;
     background: linear-gradient(to right, transparent, var(--cGray), 80%);
 }

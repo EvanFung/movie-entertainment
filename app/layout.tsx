@@ -52,7 +52,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className={clashDisplay.className}>
+      <body className={clashDisplay.className}>
       <Theme appearance={'dark'} accentColor={'crimson'} grayColor={'slate'} radius="large" scaling="95%" >
           {children}
       </Theme>
