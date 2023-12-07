@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import '@radix-ui/themes/styles.css';
 import './globals.css'
 import {Theme, ThemePanel, Container} from '@radix-ui/themes';
 
@@ -53,9 +54,7 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true} className={clashDisplay.className}>
       <Theme appearance={'dark'} accentColor={'crimson'} grayColor={'slate'} radius="large" scaling="95%" >
-        <Container>
           {children}
-        </Container>
       </Theme>
       </body>
     </html>

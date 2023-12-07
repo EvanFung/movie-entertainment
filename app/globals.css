@@ -20,14 +20,23 @@
 
     --BodyM: 16px;
     --BodyS: 14px;
+    --box-shadow: 0 5px 25px rgb(2,2,2,0.1);
+    --text-shadow: 0 5px 25px rgb(2,2,2,0.1);
 }
 body {
     font-size: var(--BodyM);
 }
+.right-container {
+    width: 95%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
 .hero-img {
     /* Adjust the height as needed */
-    height: 70vh; /* This makes the hero image take 80% of the viewport height */
+    height: 60vh; /* This makes the hero image take 80% of the viewport height */
     background-size: cover; /* Cover ensures that the background image covers the entire container */
     background-position: center; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -40,7 +49,6 @@ body {
             linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8)), /* Left to right gradient */
             linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8)), /* Top to bottom gradient */
     url('../public/image-mountain.jpg');
-    width: 92%;
 }
 .hero-content {
     text-align: left; /* Center the text for the hero content */
@@ -60,6 +68,7 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    gap: 2rem;
     width: 60%;
 }
 /* Ensure that the content is above the overlay */
@@ -81,10 +90,7 @@ body {
     padding: 5px 20px;
 }
 .play-video-btn {
-    margin-left: 1rem;
     background: var(--cPink);
-    border-radius: 50% 50%;
-    padding: 15px;
 }
 
 .search-input-container {
@@ -98,30 +104,103 @@ body {
     border-right:none;
 }
 
-/* left navigation menu */
+/* left navigation menu takes up 5% width of the screen */
 .nav-menu {
-    margin-top:4rem;
     position: fixed;
     top: 0;
     left: 0;
-    width: 8%;
+    width: 5%;
     height: 100vh;
     z-index: 100;
     background: var(--cDark);
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    /*border-top-right-radius: 50px; !* adjust the px value to increase or decrease the curve *!*/
+    /*border-bottom-right-radius: 50px; !* adjust the px value to increase or decrease the curve *!*/
+    background: linear-gradient(to top, var(--cDark), rgba(58, 55, 55, 0.8));
 }
 
 .sidebar-list {
     list-style-type: none;
 }
 .sidebar-item {
-    padding: 2rem;
+    padding: 1.5rem;
 }
-
-.sidebar-item:hover {
+.nav-menu ul > li:hover {
     background: var(--cPink);
     cursor: pointer;
-    border-radius: 0 50px 50px 0;
+    border-radius: 100%;
+}
+
+/* Tab navigation bar */
+.tab-menu {
+    list-style: none;
+    background: var(--cGray);
+    max-width: 50rem;
+    padding: 0.625rem;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--cPink);
+    border-radius: 50px;
+    box-shadow: var(--box-shadow);
+    overflow-x: auto;
+    user-select: none;
+}
+.tab-menu::-webkit-scrollbar {
+    display: none;
+}
+.tab-item {
+    border-radius:30px;
+    border: 1px solid var(--cPink);
+    display:inline-block;
+    color: var(--cWhite);
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 10px 20px;
+    margin: 0 2px;
+    background: var(--cDark);
+    user-select: none;
+    transition:0.3s ease;
+
+}
+.tab-item.clicked {
+    background: var(--cPink);
+}
+.tab-item:hover {
+    background: var(--cGray);
+    cursor: pointer;
+}
+.tab-nav-bar {
+    position: relative;
+}
+.tab-navigation {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: fit-content;
+}
+.tab-nav-bar {
+    display: flex;
+    justify-content: center;
+}
+.left-btn,.right-btn {
+    position: absolute;
+    cursor: pointer;
+}
+.left-btn {
+    top:15px;
+    left:-30px;
+    background: linear-gradient(to left, transparent, var(--cGray), 80%);
+}
+.left-btn.hidden {
+    display: none;
+}
+.right-btn {
+    top:15px;
+    right:-30px;
+    background: linear-gradient(to right, transparent, var(--cGray), 80%);
+}
+.right-btn.hidden {
+    display: none;
 }
