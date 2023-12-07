@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root {
+    /* Colors */
+    --cDark:#0d1113;
+    --cPink:#e8317e;
+    --cGray:#8193a0;
+    --cWhite:#fbf9f9;
+    /* Font Size */
+    --HeadingXL: 64px;
+    --HeadingL: 48px;
+    --HeadingM: 24px;
+    --HeadingS: 20px;
+
+    --BodyM: 16px;
+    --BodyS: 14px;
+}
+
+body {
+    background-color: var(--cDark);
+    color: var(--cWhite);
+    font-size: var(--BodyM);
+    line-height: 1.5;
+}
