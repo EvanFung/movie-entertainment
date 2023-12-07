@@ -21,10 +21,107 @@
     --BodyM: 16px;
     --BodyS: 14px;
 }
-
 body {
-    background-color: var(--cDark);
-    color: var(--cWhite);
     font-size: var(--BodyM);
-    line-height: 1.5;
+}
+
+.hero-img {
+    /* Adjust the height as needed */
+    height: 70vh; /* This makes the hero image take 80% of the viewport height */
+    background-size: cover; /* Cover ensures that the background image covers the entire container */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    position: relative; /* Needed to position the content inside */
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    justify-content: flex-start; /* Horizontally center the content */
+    color: #fff; /* Adjust text color to contrast with the hero image */
+    background-image:
+            linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8)), /* Left to right gradient */
+            linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8)), /* Top to bottom gradient */
+    url('../public/image-mountain.jpg');
+    width: 92%;
+}
+.hero-content {
+    text-align: left; /* Center the text for the hero content */
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3rem;
+}
+.hero-content-left {
+    width: 40%;
+}
+.hero-content-right {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 60%;
+}
+/* Ensure that the content is above the overlay */
+.search-input-container input {
+    flex-grow: 1;
+    border: none;
+    padding:2px;
+    border-radius: 2.2rem;
+    outline: none; /* Removes the default focus outline */
+    background-color: transparent;
+    color: #fff;
+}
+.icon {
+    cursor: pointer; /* Change cursor on hover over the icons */
+}
+.search-btn {
+    background: var(--cPink);
+    border-radius: 30px;
+    padding: 5px 20px;
+}
+.play-video-btn {
+    margin-left: 1rem;
+    background: var(--cPink);
+    border-radius: 50% 50%;
+    padding: 15px;
+}
+
+.search-input-container {
+    margin-bottom: 4rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Adjust for desired roundness */
+    height: 30px;
+    border-right:none;
+}
+
+/* left navigation menu */
+.nav-menu {
+    margin-top:4rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8%;
+    height: 100vh;
+    z-index: 100;
+    background: var(--cDark);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.sidebar-list {
+    list-style-type: none;
+}
+.sidebar-item {
+    padding: 2rem;
+}
+
+.sidebar-item:hover {
+    background: var(--cPink);
+    cursor: pointer;
+    border-radius: 0 50px 50px 0;
 }
