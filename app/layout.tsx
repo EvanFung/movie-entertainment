@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import '@radix-ui/themes/styles.css';
+import './theme.config.css';
 import './globals.css'
-import {Theme, ThemePanel, Container} from '@radix-ui/themes';
+import {Theme} from '@radix-ui/themes';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -52,8 +53,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={clashDisplay.className}>
-      <Theme appearance={'dark'} accentColor={'crimson'} grayColor={'slate'} radius="large" scaling="95%" >
+      <body className={`${clashDisplay.className} ${clashDisplay.variable}`}>
+      <Theme appearance={'dark'} accentColor={'crimson'} grayColor={'slate'} radius="large" scaling="95%" className={clashDisplay.variable} >
           {children}
       </Theme>
       </body>
