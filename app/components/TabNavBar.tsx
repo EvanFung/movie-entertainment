@@ -67,7 +67,7 @@ const TabNavBar = () => {
                     {
                         categories.map(category => (
                             <li className={`tab-item ${category==activeCategory ? 'clicked' : ''}`} key={category} onClick={() => handleCategoryClick(category)}>
-                                {category}
+                                <p className='text-base'>{category}</p>
                             </li>
                         ))
                     }

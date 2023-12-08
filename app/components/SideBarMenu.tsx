@@ -7,7 +7,7 @@ const SideBarMenu = () => {
         <div className='nav-menu'>
             <ul className='sidebar-list'>
                 <li className={`sidebar-item ${activeMenu == 'home' ? 'clicked' : ''}`}>
-                    <HomeIcon className='icon sidebar-icon' height="16" width="16" />
+                    <HomeIcon className='icon sidebar-icon'  height="16" width="16" />
                 </li>
                 <li className={`sidebar-item ${activeMenu == 'person' ? 'clicked' : ''}`}>
                     <PersonIcon className='icon' height="16" width="16" />
