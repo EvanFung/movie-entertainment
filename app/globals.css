@@ -128,9 +128,16 @@ body {
 .sidebar-list {
     list-style-type: none;
     margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap:4rem;
 }
 .sidebar-item {
-    padding: 2.5rem;
+    padding: 0.625rem;
+}
+.sidebar-item.clicked {
+    background: var(--cPink);
+    border-radius: 100%;
 }
 .nav-menu ul > li:hover {
     background: var(--cPink);
@@ -210,16 +217,6 @@ body {
 }
 
 /* video section */
-
-.video-container {
-    margin-left: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    width: 95%;
-    height: 100%;
-}
 .video-category-header {
     display: flex;
     justify-content: space-between;
@@ -228,11 +225,12 @@ body {
 .video-collection-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     align-items: center;
+    width: 100%;
+    gap: 1rem;
 }
 
-/* collection - Trending / Popular etc. */
+/* collection - Trending etc. */
 .collection {
     height: 100%;
     width: 95%;
@@ -271,26 +269,23 @@ body {
     font-size: 0.75rem; /* text-xs */
     text-transform: uppercase;
 }
-.card-container {
+.card-container-trending {
     display: flex;
-    gap: 1rem;
     overflow-x: auto;
     position: relative;
     gap: 0.5rem; /* gap-10 remove later when implement responsive */
-    margin-left: 1rem;
 }
-.card {
+.card-item-trending {
     width: 100%;
-    cursor:pointer;
     position: relative;
 }
-.image-container {
+.image-container-trending {
     position:relative;
-    width:100%;
     height:230px;
     width:470px;
+    cursor: pointer;
 }
-.image-container::after {
+.image-container-trending::after {
     content: '';
     position: absolute;
     top: 0;
@@ -300,11 +295,7 @@ body {
     background-color: var(--cDark); /* bg-app-dark-blue */
     opacity: 0.2;
 }
-
-.image-wrapper img {
-    object-fit: cover;
-}
-.info {
+.info-trending {
     position: absolute;
     left: 1rem;
     bottom: 1rem;
@@ -315,6 +306,11 @@ body {
     display: flex;
     flex-direction: row;
     gap: 0.6rem;
+    margin-top: 1rem;
+}
+.movie-info {
+    display: flex;
+    flex-direction: column;
 }
 .movie-title {
     font-size: var(--HeadingS);
@@ -325,10 +321,50 @@ body {
 /* Custom horizontal scroll for trending section */
 .h-scroll::-webkit-scrollbar {
     border-radius: 10px;
-    height: 8px;
-    width: 8px;
+    height: 6px;
+    width: 6px;
 }
 .h-scroll::-webkit-scrollbar-thumb:horizontal {
     background: var(--cGray); /* app-greyish-blue */
     border-radius: 10px;
+}
+/* Other collection, such as Popular, Top Rated, On Air ... */
+.card-container {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: flex-start;
+    gap: 0.625rem;
+}
+.card-item {
+    margin-bottom: 1rem;
+    /*background: var(--cGray); !* Placeholder background color *!*/
+    /*border: 1px solid #ccc; !* Placeholder border *!*/
+    padding: 5px; /* Placeholder padding */
+    flex: 0 1 calc(20% - 8px); /* Adjust for gap, 4 items per row by default */
+}
+
+.card-item img {
+    min-width:100%;
+    border-radius: 1rem;
+    height: 230px;
+    object-fit: cover;
+}
+
+.card-item-long {
+    flex: 0 1 calc(33.333% - 8px); /* Adjust for gap, 4 items per row by default */
+}
+
+
+/* Responsive design for device sizes between 768px and 1280px */
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+    .card-item{ /* Target both classes as they will behave the same */
+        flex: 0 1 calc(33.333% - 8px); /* Adjust for gap, 3 items per row */
+    }
+}
+
+/* Responsive design for device sizes below 768px */
+@media screen and (max-width: 767px) {
+    .card-item{ /* Target both classes as they will behave the same */
+        flex: 0 1 calc(50% - 8px); /* Adjust for gap, 2 items per row */
+    }
 }
