@@ -1,12 +1,8 @@
 'use client'
-import {MagnifyingGlassIcon, PlayIcon} from "@radix-ui/react-icons";
-import {Button} from "@radix-ui/themes";
 import TabNavBar from "@/app/components/TabNavBar";
 import SideBarMenu from "@/app/components/SideBarMenu";
-import Image from 'next/image'
 import HeroSection from "@/app/components/HeroSection";
-import TrendingVideos from "@/app/components/TrendingVideos";
-import CategoryVideos from "@/app/components/CategoryVideos";
+import CollectionVideos from "@/app/components/CollectionVideos";
 export default function Home() {
   return (
     <main className='flex flex-row justify-end'>
@@ -15,8 +11,8 @@ export default function Home() {
                 <HeroSection />
                 <TabNavBar />
                 <div className='video-collection-container'>
-                    <TrendingVideos />
-                    <CategoryVideos />
+                    <CollectionVideos entertainmentType='movie' collectionType='Trending' isTrending={true} movieTitle='Oppenheimer' />
+                    <CollectionVideos entertainmentType={'movie'} collectionType={'Popular'} movieTitle={'The nice guy'} />
                 </div>
             </div>
     </main>
