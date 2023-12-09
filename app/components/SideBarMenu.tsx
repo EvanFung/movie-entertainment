@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {ClockIcon, HomeIcon, MoonIcon, PersonIcon, VideoIcon} from "@radix-ui/react-icons";
 

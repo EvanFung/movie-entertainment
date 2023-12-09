@@ -4,6 +4,7 @@ import '@radix-ui/themes/styles.css';
 import './theme.config.css';
 import './globals.css'
 import {Theme} from '@radix-ui/themes';
+import QueryClientProvider from "@/app/QueryClientProvider";
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -54,9 +55,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${clashDisplay.className} ${clashDisplay.variable}`}>
+      <QueryClientProvider>
       <Theme appearance={'dark'} accentColor={'crimson'} grayColor={'slate'} radius="large" scaling="95%" className={clashDisplay.variable} >
           {children}
       </Theme>
+        </QueryClientProvider>
       </body>
     </html>
   )

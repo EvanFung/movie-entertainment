@@ -281,8 +281,8 @@ body {
 }
 .image-container-trending {
     position:relative;
-    height:230px;
-    width:470px;
+    height:281px;
+    width:500px;
     cursor: pointer;
 }
 .image-container-trending::after {

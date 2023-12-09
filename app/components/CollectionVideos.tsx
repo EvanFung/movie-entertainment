@@ -1,44 +1,113 @@
-import React from 'react';
+'use client'
+import React, {useEffect, useRef} from 'react';
 import CollectionHeader from "@/app/components/CollectionHeader";
 import Image from "next/image";
+import {useQuery} from "@tanstack/react-query";
+import api from "@/app/utils/api";
+import * as Utils from "@/app/utils";
 
+interface Movie extends Array<Movie> {
+    id: number;
+    adult:boolean;
+    title: string;
+    backdrop_path:string;
+    original_language:string;
+    overview:string;
+    poster_path:string;
+    media_type:string;
+    genre_ids:number[];
+    popularity:number;
+    release_date:string;
+    video:boolean;
+    vote_average:number;
+    vote_count:number;
+}
 interface Props {
     entertainmentType:string;
     collectionType:string;
-    movieTitle:string;
     isTrending?:boolean | false;
+    endpoint:string;
+    limit?:number | 8;
 }
-//api/v1/videos?videoType=Popular
 const CollectionVideos = ({
     entertainmentType,
-    collectionType,movieTitle,isTrending}: Props) => {
+    collectionType,isTrending, endpoint,limit}: Props) => {
+
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // This function will handle the horizontal scrolling
+            const handleWheel = (event: WheelEvent) => {
+                if (scrollContainerRef.current) {
+                    event.preventDefault();
+
+                    scrollContainerRef.current.scrollLeft += event.deltaY;
+                }
+            };
+
+            // Get the current element from the ref
+            const scrollContainerEl = scrollContainerRef.current;
+
+            // Add the non-passive wheel event listener to the scrollable container
+            scrollContainerEl?.addEventListener('wheel', handleWheel, { passive: false });
+            // Remove the event listener on cleanup
+            return () => {
+                scrollContainerEl?.removeEventListener('wheel', handleWheel);
+            };
+
+    }, []);
+
+
+
+    const{data , error, isLoading} =  useQuery({
+        queryKey: isTrending ? ['trending'] : ['popular'],
+        queryFn:() => api.get(endpoint).then(res =>res.data),
+        staleTime: 60 * 1000 * 10,
+    });
+    if(isLoading) {
+        return <p>Loading...</p>
+    }
+    if(error) {
+        return <p>Error</p>
+    }
+    console.log(endpoint);
+    const movies = handleMovieData(data.results, limit || 8);
     return (
         <section className="collection">
             <CollectionHeader collectionType={collectionType} entertainmentType={entertainmentType} />
-            <div className='card-container'>
-                <div className={`${isTrending ? 'card-item-trending': 'card-item'}`}>
-                    <div className={`${isTrending ? 'card-container-trending h-scroll': 'card-image-container'}`}>
-                        {isTrending ? (
-                            <div className="image-container-trending">
-                                <Image className='rounded-lg' src='/images/image-(5).jpg' alt='sss' fill sizes='470px' objectFit='cover' />
-                            </div>
-                        ):
-                            <img src='/images/image-(3).jpg'  />
-                        }
-                    </div>
-                    <div className={`${isTrending ? 'info-trending': 'card-item-text'}`}>
-                        <div className="info-text">
-                            <p>2023</p>
-                            <div className="info-detail">
-                                <p>{entertainmentType}</p>
-                            </div>
+            <div ref={isTrending ? scrollContainerRef: null} className={`${isTrending ? 'card-container-trending h-scroll' : 'card-container'}`}>
+                {movies.map( (movie, index) => (
+                    <div className={`${isTrending ? 'card-item-trending': `${index >= movies.length - 3 ? 'card-item-long card-item' : 'card-item'}`}`}>
+                        <div className={`${isTrending ? 'card-container-trending h-scroll': 'card-image-container'}`}>
+                            {isTrending ? (
+                                    <div className="image-container-trending">
+                                        <Image className='rounded-lg' src={`${Utils.TMDB_IMAGE_ENDPOINT + Utils.backdropSize.medium + movie.backdrop_path}`} alt='sss' width={500} height={281} style={{objectFit:'cover'}}  />
+                                    </div>
+                                ):
+                                <img src={`${Utils.TMDB_IMAGE_ENDPOINT + Utils.backdropSize.large + movie.backdrop_path}`}  />
+                            }
                         </div>
-                        <h2 className="movie-title">{movieTitle}</h2>
+                        <div className={`${isTrending ? 'info-trending': 'card-item-text'}`}>
+                            <div className="info-text">
+                                <p>{new Date(movie.release_date).getFullYear()}</p>
+                                <div className="info-detail">
+                                    <p>{Math.round(movie.vote_average *100)/100}</p>
+                                </div>
+                            </div>
+                            <h2 className="movie-title">{movie.title}</h2>
+                        </div>
                     </div>
-                </div>
+                ))}
             </div>
         </section>
     );
 };
+
+const handleMovieData = (movies: Movie[], limit:number | 8) => {
+    return movies.sort((a, b) => {
+        return a.popularity - b.popularity;
+    }).slice(0, limit)
+
+}
 
 export default CollectionVideos;

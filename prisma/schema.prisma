@@ -9,34 +9,3 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-
-model Movie {
-  id         Int          @id @default(autoincrement())
-  title      String       @db.VarChar(255)
-  year       Int
-  plot       String?      @db.Text
-  poster     String?      @db.VarChar(255)
-  genres     Genre[]
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  MovieGenre MovieGenre[]
-}
-
-model Genre {
-  id         Int          @id @default(autoincrement())
-  name       String       @db.VarChar(255)
-  movies     Movie[]
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  MovieGenre MovieGenre[]
-}
-
-model MovieGenre {
-  movieId Int
-  genreId Int
-  movie   Movie @relation(fields: [movieId], references: [id])
-  genre   Genre @relation(fields: [genreId], references: [id])
-
-  // Add additional fields here if necessary
-  @@id([movieId, genreId]) // Composite primary key
-}
