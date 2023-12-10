@@ -2,9 +2,9 @@
 This is a simple movie entertainment app that displays a list of movies and their trailers. The app is written in Next.js to serve the web pages. The app uses the [The Movie Database API](https://www.themoviedb.org/documentation/api) to get the movie data.
 
 ## Sceeenshots
-![mobile](./public/images/screen-mobile.png)
-![desktop](./public/images/screen-tablet.png)
-![desktop](./public/images/screen-desktop.png)
+![mobile](assets/screen-mobile.png)
+![desktop](assets/screen-tablet.png)
+![desktop](assets/screen-desktop.png)
 
 ## Purpose
 The purpose of this project is to demonstrate the use of Next.js and have a functional web app. Secondly, I want to demonstrate my ability to learn new technologies and apply them to a project.
