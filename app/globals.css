@@ -76,11 +76,6 @@ body {
     overflow-y: auto;
 }
 
-.footer {
-    display:flex;
-    justify-content: center;
-}
-
 .hero-img {
     /* Adjust the height as needed */
     height: 60vh; /* This makes the hero image take 60% of the viewport height */
@@ -408,11 +403,65 @@ body {
     .card-item{ /* Target both classes as they will behave the same */
         flex: 0 1 calc(33.333% - 8px); /* Adjust for gap, 3 items per row */
     }
+    .nav-menu {
+        width: 10%;
+    }
+    .right-container {
+        width: 90%;
+    }
+    .sidebar-item svg {
+        width: 16px;
+        height: 16px;
+    }
+    .hero-content-left h1 {
+        font-size: var(--HeadingM);
+    }
+    .hero-content-left p {
+        font-size: var(--BodyM);
+    }
+    .hero-content-right h1 {
+        font-size: var(--HeadingS);
+    }
+    .search-input-container {
+        margin-bottom: 1rem;
+    }
+    .tab-item p {
+        font-size: var(--BodyS);
+    }
+
 }
 
 /* Responsive design for device sizes below 768px - smartphone */
 @media screen and (max-width: 767px) {
     .card-item{ /* Target both classes as they will behave the same */
         flex: 0 1 calc(50% - 8px); /* Adjust for gap, 2 items per row */
+    }
+    .hero-img {
+        display: none;
+    }
+    .main-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .nav-menu {
+        height:5rem;
+        width:100%;
+        position: fixed;
+        top: 92%;
+        align-items: center;
+        justify-content: center;
+        background: var(--cDark);
+        display: flex;
+    }
+    .sidebar-list {
+        flex-direction:row;
+        gap: 1rem;
+        /*margin-bottom: 3rem;*/
+        margin-top:0;
+        margin-bottom:1rem;
+    }
+    .tab-navigation {
+        margin-left:0px;
+        max-width: 100%;
     }
 }

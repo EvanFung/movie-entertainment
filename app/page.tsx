@@ -6,7 +6,7 @@ import Footer from "@/app/components/Footer";
 export default function Home() {
     const limitTrending = 10;
   return (
-    <main className='flex flex-row justify-end'>
+    <main className='flex flex-row justify-end main-container'>
         <SideBarMenu/>
             <div className='right-container'>
                 <HeroSection />
@@ -17,7 +17,7 @@ export default function Home() {
                     <CollectionVideos entertainmentType={'movie'} collectionType={'Now Playing'}  endpoint='movie/now_playing?language=en-US&page=1' queryKey='now_playing' />
                     <CollectionVideos entertainmentType={'movie'} collectionType={'Top Rate'}  endpoint='movie/top_rated?language=en-US&page=1' queryKey='top_rated' />
                 </div>
-                <Footer />
+                {/*right container*/}
             </div>
     </main>
   )
