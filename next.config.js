@@ -5,7 +5,7 @@ const nextConfig = {
         // baseURL: process.env.ENDPOINT,
         // accessToken: process.env.TMDB_API_READ_ACCESS_TOKEN,
     },
-    reactStrictMode: false,
+    reactStrictMode: true,
     images: {
         domains: ['source.unsplash.com', 'image.tmdb.org'],
     },

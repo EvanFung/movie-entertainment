@@ -25,8 +25,7 @@ The reasons for choosing Next.js are:
 1. At first, I was using the Tailwind CSS, but I found it difficult to maintain and use them.Then, I decided to use traditional css instead. Use whatever suits you!
 2. Use mobile-first design, it makes it easier to scale up to larger screens, design your css mobile first, then scale up to larger screens with media query.
 3. Implement a horizontal tab navigation bar and horizontal scrollable content:
-    - Use `overflow-x: scroll` to make the content scrollable.
-    - set the container as overflow-x: auto; white-space: nowrap; to make the content scrollable horizontally.
+    - set the container `as overflow-x: auto; white-space: nowrap;` to make the content scrollable horizontally.
     - set the child element as display: inline-block; to make the child element display in a row.
     - Implement the scroll function using useRef to reference the tab menu element, then change the scrollLeft property to scroll the content.
     - [How to implement the scrollable horizontal menu](https://www.youtube.com/watch?v=as01ehtBN0Y&t=1227s&ab_channel=CodingSnow)
