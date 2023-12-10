@@ -5,6 +5,8 @@ import Image from "next/image";
 import {useQuery} from "@tanstack/react-query";
 import api from "@/app/utils/api";
 import * as Utils from "@/app/utils";
+import Loader from "@/app/components/Loader";
+import delay from "delay";
 
 interface Movie extends Array<Movie> {
     id: number;
@@ -32,29 +34,29 @@ interface Props {
 }
 const CollectionVideos = ({
     entertainmentType,
-    collectionType,isTrending, endpoint,limit, queryKey}: Props) => {
+    collectionType,isTrending, endpoint,limit, queryKey}: Props) =>  {
 
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleWheel = (event: WheelEvent) => {
-            console.log('Wheel event triggered'); // Add this to ensure the event is being fired
-            if (scrollContainerRef.current) {
-                event.preventDefault();
-                const scrollAmount = event.deltaY;
-                scrollContainerRef.current.scrollLeft += scrollAmount;
-                console.log(`Scrolled: ${scrollAmount}`); // This will log the scroll amount
-            }
-        };
-
-        const scrollContainerEl = scrollContainerRef.current;
-
-        scrollContainerEl?.addEventListener('wheel', handleWheel, { passive: false });
-
-        return () => {
-            scrollContainerEl?.removeEventListener('wheel', handleWheel);
-        };
-    }, []);
+    // const scrollContainerRef = useRef<HTMLDivElement>(null);
+    //
+    // useEffect(() => {
+    //     const handleWheel = (event: WheelEvent) => {
+    //         console.log('Wheel event triggered'); // Add this to ensure the event is being fired
+    //         if (scrollContainerRef.current) {
+    //             event.preventDefault();
+    //             const scrollAmount = event.deltaY;
+    //             scrollContainerRef.current.scrollLeft += scrollAmount;
+    //             console.log(`Scrolled: ${scrollAmount}`); // This will log the scroll amount
+    //         }
+    //     };
+    //
+    //     const scrollContainerEl = scrollContainerRef.current;
+    //
+    //     scrollContainerEl?.addEventListener('wheel', handleWheel, { passive: false });
+    //
+    //     return () => {
+    //         scrollContainerEl?.removeEventListener('wheel', handleWheel);
+    //     };
+    // }, []);
 
 
 
@@ -63,8 +65,9 @@ const CollectionVideos = ({
         queryFn:() => api.get(endpoint).then(res =>res.data),
         staleTime: 60 * 1000 * 10,
     });
+    // await delay(5000);
     if(isLoading) {
-        return <p>Loading...</p>
+        return <Loader/>
     }
     if(error) {
         return <p>Error</p>
@@ -73,9 +76,9 @@ const CollectionVideos = ({
     return (
         <section className="collection">
             <CollectionHeader collectionType={collectionType} entertainmentType={entertainmentType} />
-            <div ref={isTrending ? scrollContainerRef: null} className={`${isTrending ? 'card-container-trending h-scroll' : 'card-container'}`}>
+            <div className={`${isTrending ? 'card-container-trending h-scroll' : 'card-container'}`}>
                 {movies.map( (movie, index) => (
-                    <div className={`${isTrending ? 'card-item-trending': `${index >= movies.length - 3 ? 'card-item-long card-item' : 'card-item'}`}`}>
+                    <div key={movie.id} className={`${isTrending ? 'card-item-trending': `${index >= movies.length - 3 ? 'card-item-long card-item' : 'card-item'}`}`}>
                         <div className={`${isTrending ? 'card-container-trending h-scroll': 'card-image-container'}`}>
                             {isTrending ? (
                                     <div className="image-container-trending">
