@@ -28,39 +28,38 @@ interface Props {
     isTrending?:boolean | false;
     endpoint:string;
     limit?:number | 8;
+    queryKey:string
 }
 const CollectionVideos = ({
     entertainmentType,
-    collectionType,isTrending, endpoint,limit}: Props) => {
+    collectionType,isTrending, endpoint,limit, queryKey}: Props) => {
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // This function will handle the horizontal scrolling
-            const handleWheel = (event: WheelEvent) => {
-                if (scrollContainerRef.current) {
-                    event.preventDefault();
+        const handleWheel = (event: WheelEvent) => {
+            console.log('Wheel event triggered'); // Add this to ensure the event is being fired
+            if (scrollContainerRef.current) {
+                event.preventDefault();
+                const scrollAmount = event.deltaY;
+                scrollContainerRef.current.scrollLeft += scrollAmount;
+                console.log(`Scrolled: ${scrollAmount}`); // This will log the scroll amount
+            }
+        };
 
-                    scrollContainerRef.current.scrollLeft += event.deltaY;
-                }
-            };
+        const scrollContainerEl = scrollContainerRef.current;
 
-            // Get the current element from the ref
-            const scrollContainerEl = scrollContainerRef.current;
+        scrollContainerEl?.addEventListener('wheel', handleWheel, { passive: false });
 
-            // Add the non-passive wheel event listener to the scrollable container
-            scrollContainerEl?.addEventListener('wheel', handleWheel, { passive: false });
-            // Remove the event listener on cleanup
-            return () => {
-                scrollContainerEl?.removeEventListener('wheel', handleWheel);
-            };
-
+        return () => {
+            scrollContainerEl?.removeEventListener('wheel', handleWheel);
+        };
     }, []);
 
 
 
     const{data , error, isLoading} =  useQuery({
-        queryKey: isTrending ? ['trending'] : ['popular'],
+        queryKey: [queryKey],
         queryFn:() => api.get(endpoint).then(res =>res.data),
         staleTime: 60 * 1000 * 10,
     });
@@ -70,7 +69,6 @@ const CollectionVideos = ({
     if(error) {
         return <p>Error</p>
     }
-    console.log(endpoint);
     const movies = handleMovieData(data.results, limit || 8);
     return (
         <section className="collection">
