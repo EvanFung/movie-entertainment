@@ -429,6 +429,10 @@ body {
         font-size: var(--BodyS);
     }
 
+    .tab-navigation {
+        /*margin-left:0px;*/
+        max-width: 90%;
+    }
 }
 
 /* Responsive design for device sizes below 768px - smartphone */
