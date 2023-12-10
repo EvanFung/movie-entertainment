@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Movie Entertainment App
+This is a simple movie entertainment app that displays a list of movies and their trailers. The app is written in Next.js to serve the web pages. The app uses the [The Movie Database API](https://www.themoviedb.org/documentation/api) to get the movie data.
 
-## Getting Started
+## Sceeenshots
+![mobile](./public/images/screen-mobile.png)
+![desktop](./public/images/screen-tablet.png)
+![desktop](./public/images/screen-desktop.png)
 
-First, run the development server:
+## Purpose
+The purpose of this project is to demonstrate the use of Next.js and have a functional web app. Secondly, I want to demonstrate my ability to learn new technologies and apply them to a project.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Stack
+- Next.js
+- Flexbox
+- Mobile first design
+- Tailwind CSS
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The reasons for choosing Next.js are:
+- Next.js is a React-based web development framework that allow developers to easily build fully-fledged websites.
+- It offers the ability to choose different page rendering methods for each page.
+- Support TypeScript out of the box.
+- Adopted by various companies such as Netflix, Twitch, and Uber.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Lesson learned:
+1. At first, I was using the Tailwind CSS, but I found it difficult to maintain and use them.Then, I decided to use traditional css instead. Use whatever suits you!
+2. Use mobile-first design, it makes it easier to scale up to larger screens, design your css mobile first, then scale up to larger screens with media query.
+3. Implement a horizontal tab navigation bar and horizontal scrollable content:
+    - Use `overflow-x: scroll` to make the content scrollable.
+    - set the container as overflow-x: auto; white-space: nowrap; to make the content scrollable horizontally.
+    - set the child element as display: inline-block; to make the child element display in a row.
+    - Implement the scroll function using useRef to reference the tab menu element, then change the scrollLeft property to scroll the content.
+    - [How to implement the scrollable horizontal menu](https://www.youtube.com/watch?v=as01ehtBN0Y&t=1227s&ab_channel=CodingSnow)
+## Problems encountered:
