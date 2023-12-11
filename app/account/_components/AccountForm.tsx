@@ -1,8 +1,7 @@
 'use client'
 import React, {useState} from 'react';
-import {Button, TextField} from "@radix-ui/themes";
+import {Button, TextField, Callout} from "@radix-ui/themes";
 import {User} from "@prisma/client";
-import {useRouter} from "next/navigation";
 import {z} from 'zod'
 import {patchUserSchemas} from "@/app/validationSchemas";
 import {useForm} from "react-hook-form";
@@ -15,18 +14,21 @@ interface Props {
 }
 type UserData = z.infer<typeof patchUserSchemas>
 const AccountForm = ({user}: {user: User}) => {
-    const router = useRouter();
     const {register, control, handleSubmit, formState: {errors}} = useForm<UserData>({
         resolver: zodResolver(patchUserSchemas)
     });
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isUpdated, setIsUpdated] = useState(false);
     const onSubmit = handleSubmit(async (data) => {
         try {
             setIsSubmitting(true);
             await axios.patch('/api/users/'+user.id, data);
-            // router.push('/account/'+user.id);
-            // router.refresh();
+            setIsUpdated(true);
+            //callout disappears after 5 seconds
+            setInterval(() => {
+                setIsUpdated(false);
+            }, 5000);
             setIsSubmitting(false);
         } catch (error) {
             setIsSubmitting(false);
@@ -35,6 +37,13 @@ const AccountForm = ({user}: {user: User}) => {
     });
     return (
         <div className='max-w-xl'>
+            {isUpdated && (
+                <Callout.Root color='green' className='mb-5'>
+                    <Callout.Text>
+                        Account details updated successfully
+                    </Callout.Text>
+                </Callout.Root>
+            )}
             {error && (
                 <Callout.Root color='red' className='mb-5'>
                     <Callout.Text>

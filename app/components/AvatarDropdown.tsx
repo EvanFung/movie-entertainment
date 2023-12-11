@@ -5,8 +5,6 @@ import {useSession} from "next-auth/react";
 import Skeleton from "react-loading-skeleton";
 import { MdOutlineLogin } from "react-icons/md";
 
-
-
 const AvatarDropdown = () => {
     const {status, data: session} = useSession();
     if (status === 'loading') return <Skeleton width='1rem' />
