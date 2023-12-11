@@ -10,6 +10,7 @@ import delay from "delay";
 import Movie from "@/app/models/Movie";
 import TrendVideoCard from "@/app/components/TrendVideoCard";
 import NormalVideoCard from "@/app/components/NormalVideoCard";
+import { Callout } from '@radix-ui/themes';
 interface Props {
     entertainmentType:string;
     collectionType:string;
@@ -32,7 +33,14 @@ const CollectionVideos = ({
         return <Loader/>
     }
     if(error) {
-        return <p>Error</p>
+        return (
+
+            <Callout.Root color='red' className='mb-5'>
+                <Callout.Text>
+                    {error.message}
+                </Callout.Text>
+            </Callout.Root>
+        )
     }
     const movies = handleMovieData(data.results, limit || 8);
     return (

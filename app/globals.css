@@ -172,15 +172,20 @@ body {
     display: flex;
     flex-direction: column;
     gap:4rem;
+    justify-content: center;
+    align-items: center;
 }
 .sidebar-item {
     padding: 0.625rem;
+}
+.sidebar-item.sidebar-avatar {
+    padding: 0;
 }
 .sidebar-item.clicked {
     background: var(--cPink);
     border-radius: 100%;
 }
-.nav-menu ul > li:hover {
+.nav-menu ul > li:hover:not(.sidebar-avatar) {
     background: var(--cPink);
     cursor: pointer;
     border-radius: 100%;
@@ -413,6 +418,7 @@ body {
         width: 16px;
         height: 16px;
     }
+
     .hero-content-left h1 {
         font-size: var(--HeadingM);
     }
