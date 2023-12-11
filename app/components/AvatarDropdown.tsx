@@ -9,12 +9,11 @@ import { MdOutlineLogin } from "react-icons/md";
 
 const AvatarDropdown = () => {
     const {status, data: session} = useSession();
-    if (status === 'loading') return <Skeleton width='3rem' />
+    if (status === 'loading') return <Skeleton width='1rem' />
     if (status === 'unauthenticated')
         return (
-            <Link className='nav-link' href='/api/auth/signin'><MdOutlineLogin className='w-[28px] h-[28px]' /></Link>
+            <Link className='nav-link' href='/api/auth/signin'><p className='text-base font-medium'><MdOutlineLogin className='h-[28px] w-[28px]' /></p></Link>
         );
-
     return (
         <>
             {
@@ -37,7 +36,7 @@ const AvatarDropdown = () => {
                                 </Text>
                             </DropdownMenu.Label>
                             <DropdownMenu.Item>
-                                <Link href='#'>Profile</Link>
+                                <Link href={`/account/${session?.user?.id}`}>Profile</Link>
                             </DropdownMenu.Item>
                             <DropdownMenu.Item>
                                 <Link href='/api/auth/signout'>Log out</Link>
