@@ -1,12 +1,9 @@
 'use client'
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import CollectionHeader from "@/app/components/CollectionHeader";
-import Image from "next/image";
 import {useQuery} from "@tanstack/react-query";
 import api from "@/app/utils/api";
-import * as Utils from "@/app/utils";
 import Loader from "@/app/components/Loader";
-import delay from "delay";
 import Movie from "@/app/models/Movie";
 import TrendVideoCard from "@/app/components/TrendVideoCard";
 import NormalVideoCard from "@/app/components/NormalVideoCard";
