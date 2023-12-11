@@ -30,3 +30,12 @@ The reasons for choosing Next.js are:
     - Implement the scroll function using useRef to reference the tab menu element, then change the scrollLeft property to scroll the content.
     - [How to implement the scrollable horizontal menu](https://www.youtube.com/watch?v=as01ehtBN0Y&t=1227s&ab_channel=CodingSnow)
 ## Problems encountered:
+1. Next.js custom font with Radix UI and Tailwind css is not working, even though I have followed the instruction on the Radix UI website. I suspect it's related to SSR.
+```
+.radix-themes {
+	--default-font-family: var(--your-custom-font) !important;
+}
+```
+My workaround is simple, just add !important at the end of the radix-theme css file.
+
+2. Make the div element scrollable horizontally when mouse hover.

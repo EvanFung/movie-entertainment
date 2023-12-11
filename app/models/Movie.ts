@@ -1,4 +1,4 @@
-export default interface Movie {
+export default interface Movie extends Array<Movie>{
     id: number;
     adult:boolean;
     title: string;
