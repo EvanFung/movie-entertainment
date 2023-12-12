@@ -1,13 +1,28 @@
 'use client'
-import React from 'react';
+import React, {useRef} from 'react';
 import {useQuery} from "@tanstack/react-query";
 import Loader from "@/app/components/Loader";
-import {Avatar, Badge, Button, Callout, Card, Flex, Inset, Strong, Table, Text} from "@radix-ui/themes";
+import {
+    AspectRatio,
+    Avatar,
+    Badge,
+    Button,
+    Callout,
+    Card,
+    Flex,
+    Inset,
+    ScrollArea,
+    Strong,
+    Table,
+    Text
+} from "@radix-ui/themes";
 import axios from "axios";
 import * as Utils from "@/app/utils";
 import './movie-detail.css'
 import {notFound} from "next/navigation";
 import {InfoCircledIcon} from "@radix-ui/react-icons";
+import useHorizontalScroll from "@/app/hooks/useHorizontalScroll";
+import Link from "next/link";
 interface Props {
     params: {
         id: string;
@@ -101,6 +116,9 @@ const MovieDetailPage = ({params}: Props) => {
         staleTime: 60 * 1000 * 10,
         retry: 0,
     });
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    useHorizontalScroll(scrollContainerRef);
 
     if(isLoading) {
         return (
@@ -126,7 +144,9 @@ const MovieDetailPage = ({params}: Props) => {
                 <Flex direction='row' gap='4'>
                     <Card>
                         <Flex>
-                            <img src={`${Utils.TMDB_IMAGE_ENDPOINT}${Utils.posterSize.extraLarge}${movie.poster_path}`} />
+                            <img src={`${Utils.TMDB_IMAGE_ENDPOINT}${Utils.posterSize.extraLarge}${movie.poster_path}`} style={{
+                                borderRadius: 'var(--radius-3)',
+                            }} />
                         </Flex>
                     </Card>
                     <Card className='grow'>
@@ -152,8 +172,8 @@ const MovieDetailPage = ({params}: Props) => {
                             <p>{movie.genres.map(genre => (<Badge className='mr-2'>{genre.name}</Badge>))}</p>
                             <p>{movie.release_date}</p>
                             <Flex direction='row' gap='5'>
-                                <Button color='pink'>Website</Button>
-                                <Button color='pink'>IMDB</Button>
+                                {movie.homepage && (<a href={movie.homepage} target="_blank"><Button color='pink'>Website</Button></a>)}
+                                {movie.imdb_id && (<a href={`https://www.imdb.com/title/${movie.imdb_id}/`} target="_blank"><Button color='pink'>IMDB</Button></a>)}
                             </Flex>
                         </Flex>
                     </Card>
@@ -168,17 +188,17 @@ const MovieDetailPage = ({params}: Props) => {
                                     <Flex direction='row' gap='4' >
                                         <Card size="2" style={{ maxWidth: 240 }}>
                                             <Inset clip="padding-box" side="top" pb="current">
-                                                <img
-                                                    src={`${company.logo_path ? `${Utils.TMDB_IMAGE_ENDPOINT}${Utils.posterSize.original}${company.logo_path}`: '/images/placeholder_163X245.png'}`}
-                                                    alt="Bold typography"
-                                                    style={{
-                                                        display: 'block',
-                                                        objectFit: 'cover',
-                                                        width: 218,
-                                                        height: 65,
-                                                        backgroundColor: 'var(--gray-5)',
-                                                    }}
-                                                />
+                                                    <img
+                                                        src={`${company.logo_path ? `${Utils.TMDB_IMAGE_ENDPOINT}${Utils.posterSize.original}${company.logo_path}`: '/images/placeholder_163X245.png'}`}
+                                                        alt="Bold typography"
+                                                        style={{
+                                                            display: 'block',
+                                                            objectFit: 'cover',
+                                                            width: 218,
+                                                            height: 65,
+                                                            backgroundColor: 'var(--gray-5)',
+                                                        }}
+                                                    />
                                             </Inset>
                                             <Text as="p" size="3">
                                                 <Strong>{company.name}</Strong>
@@ -204,38 +224,41 @@ const MovieDetailPage = ({params}: Props) => {
                             <h2 className='text-sm font-extrabold mb-2'>SEE MORE</h2>
                         </div>
                         <Flex direction='row' gap='7'>
-                            <div className='h-scroll card-container-trending w-full'>
-                                {
-                                    casts.map((cast, index) => (
-                                        <Flex direction='row' gap='4'  >
-                                            {index > 10 ? (null) : (
-                                                <Card size="2" style={{ maxWidth: 240 }}>
-                                                    <Inset clip="padding-box" side="top" pb="current">
-                                                        <img
-                                                            src={`${cast.profile_path ? `${Utils.TMDB_IMAGE_ENDPOINT}${Utils.posterSize.original}${cast.profile_path}` : '/images/placeholder_163X245.png'}`}
-                                                            alt="Bold typography"
-                                                            style={{
-                                                                display: 'block',
-                                                                objectFit: 'cover',
-                                                                width: 245,
-                                                                height: 160,
-                                                                backgroundColor: 'var(--gray-5)',
-                                                            }}
-                                                        />
-                                                    </Inset>
-                                                    <Text as="p" size="3">
-                                                        <Strong>{cast.name}</Strong>
-                                                    </Text>
-                                                    <Text as="p" size="2">
-                                                        {cast.character}
-                                                    </Text>
-                                                </Card>
-                                            )}
+                            <ScrollArea ref={scrollContainerRef} scrollbars='horizontal' style={{ height: 280 }}>
+                                <div className='card-container-trending w-full'>
+                                    {
+                                        casts.map((cast, index) => (
+                                            <Flex direction='row' gap='5'  >
+                                                {index > 10 ? (null) : (
+                                                    <Card size="2" style={{ maxWidth: 240 }}>
+                                                        <Inset clip="padding-box" side="top" pb="current">
+                                                            <img
+                                                                src={`${cast.profile_path ? `${Utils.TMDB_IMAGE_ENDPOINT}${Utils.posterSize.original}${cast.profile_path}` : '/images/placeholder_163X245.png'}`}
+                                                                alt="Bold typography"
+                                                                style={{
+                                                                    display: 'block',
+                                                                    objectFit: 'cover',
+                                                                    width: 245,
+                                                                    height: 160,
+                                                                    backgroundColor: 'var(--gray-5)',
 
-                                        </Flex>
-                                    ))
-                                }
-                            </div>
+                                                                }}
+                                                            />
+                                                        </Inset>
+                                                        <Text as="p" size="3">
+                                                            <Strong>{cast.name}</Strong>
+                                                        </Text>
+                                                        <Text as="p" size="2">
+                                                            {cast.character}
+                                                        </Text>
+                                                    </Card>
+                                                )}
+
+                                            </Flex>
+                                        ))
+                                    }
+                                </div>
+                            </ScrollArea>
                         </Flex>
                     </Card>
                 </Flex>
