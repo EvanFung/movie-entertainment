@@ -2,7 +2,7 @@
 export const TMDB_API_KEY = process.env.TMDB_API_KEY
 export const TMDB_ENDPOINT="https://api.themoviedb.org/3"
 export const TMDB_IMAGE_ENDPOINT="https://image.tmdb.org/t/p/"
-
+export const TINYMCE_API_KEY = process.env.NEXT_PUBLIC_TINYMCE_API
 export const pathToSearchAll = '/search/'
 export const pathToSearchMovie = '/search/movie/'
 export const pathToSearchTV = '/search/tv/'

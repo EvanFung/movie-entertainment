@@ -253,7 +253,6 @@ const MovieDetailPage = ({params}: Props) => {
                                                         </Text>
                                                     </Card>
                                                 )}
-
                                             </Flex>
                                         ))
                                     }
@@ -266,7 +265,7 @@ const MovieDetailPage = ({params}: Props) => {
                     <Card className='grow'>
                         <Flex direction='row' justify='between' className='p-5'>
                             <h1 className='text-2xl font-extrabold mb-5'>Reviews</h1>
-                            <Button>Review this title</Button>
+                            <a href={`/movies/${params.id}/reviews/new`}><Button>Review this title</Button></a>
                         </Flex>
                         <Card className='p-2'>
                             <Flex direction='column' gap='2'>
