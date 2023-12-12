@@ -2,6 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import * as Utils from "@/app/utils";
 import Movie from "@/app/models/Movie";
+import Link from "next/link";
 
 const NormalVideoCard = ({movies} : {movies: Movie[]}) => {
     return (
@@ -9,7 +10,9 @@ const NormalVideoCard = ({movies} : {movies: Movie[]}) => {
             {movies.map( (movie, index) => (
                 <div key={movie.id} className={`${index >= movies.length - 3 ? 'card-item-long card-item' : 'card-item'}`}>
                     <div className={'card-image-container'}>
-                        <img src={`${Utils.TMDB_IMAGE_ENDPOINT + Utils.backdropSize.large + movie.backdrop_path}`}  />
+                        <Link href={`/movies/${movie.id}`} key={movie.id}>
+                            <img src={`${Utils.TMDB_IMAGE_ENDPOINT + Utils.backdropSize.large + movie.backdrop_path}`}  />
+                        </Link>
                     </div>
                     <div className={'card-item-text'}>
                         <div className="info-text">

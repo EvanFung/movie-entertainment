@@ -10,7 +10,7 @@ import axios from "axios";
 import Spinner from "@/app/components/Spinner";
 
 interface Props {
-    user?: User
+    user: User
 }
 type UserData = z.infer<typeof patchUserSchemas>
 const AccountForm = ({user}: {user: User}) => {
@@ -53,20 +53,20 @@ const AccountForm = ({user}: {user: User}) => {
             )}
             <form className='flex flex-col gap-6' onSubmit={onSubmit}>
                 <TextField.Root>
-                    <TextField.Slot as='label'>Username</TextField.Slot>
-                    <TextField.Input placeholder='Username' defaultValue={user?.name} {...register('name')} />
+                    <TextField.Slot>Username</TextField.Slot>
+                    <TextField.Input placeholder='Username' defaultValue={user!.name || ''} {...register('name')} />
                 </TextField.Root>
                 <TextField.Root>
-                    <TextField.Slot as='label'>Location</TextField.Slot>
-                    <TextField.Input placeholder='Location' defaultValue={user?.location} {...register('location')}  />
+                    <TextField.Slot>Location</TextField.Slot>
+                    <TextField.Input placeholder='Location' defaultValue={user!.location || ''} {...register('location')}  />
                 </TextField.Root>
                 <TextField.Root>
-                    <TextField.Slot as='label'>Bio</TextField.Slot>
-                    <TextField.Input placeholder='Bio' defaultValue={user?.bio} {...register('bio')} />
+                    <TextField.Slot>Bio</TextField.Slot>
+                    <TextField.Input placeholder='Bio' defaultValue={user!.bio || ''} {...register('bio')} />
                 </TextField.Root>
                 <TextField.Root>
-                    <TextField.Slot as='label'>Pronouns</TextField.Slot>
-                    <TextField.Input placeholder='Pronouns' defaultValue={user?.pronouns} {...register('pronouns')} />
+                    <TextField.Slot>Pronouns</TextField.Slot>
+                    <TextField.Input placeholder='Pronouns' defaultValue={user!.pronouns || ''} {...register('pronouns')} />
                 </TextField.Root>
                 <Button disabled={isSubmitting}>
                     {user ? 'Update account details' : 'Submit New User'}{' '}{isSubmitting && <Spinner />}

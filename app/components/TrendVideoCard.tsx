@@ -3,6 +3,7 @@ import Image from "next/image";
 import * as Utils from "@/app/utils";
 import Movie from "@/app/models/Movie";
 import useHorizontalScroll from "@/app/hooks/useHorizontalScroll";
+import Link from "next/link";
 
 const TrendVideoCard = ({movies} : {movies: Movie[]}) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -12,9 +13,11 @@ const TrendVideoCard = ({movies} : {movies: Movie[]}) => {
             {movies.map( (movie, index) => (
                 <div key={movie.id} className='card-item-trending'>
                     <div className={'card-container-trending h-scroll'}>
-                        <div className="image-container-trending">
-                            <Image className='rounded-lg' src={`${Utils.TMDB_IMAGE_ENDPOINT + Utils.backdropSize.medium + movie.backdrop_path}`} alt='sss' width={500} height={281} style={{objectFit:'cover'}}  />
-                        </div>
+                        <Link href={`/movies/${movie.id}`} key={movie.id}>
+                            <div className="image-container-trending">
+                                <Image className='rounded-lg' src={`${Utils.TMDB_IMAGE_ENDPOINT + Utils.backdropSize.medium + movie.backdrop_path}`} alt='sss' width={500} height={281} style={{objectFit:'cover'}}  />
+                            </div>
+                        </Link>
                     </div>
                     <div className={'info-trending'}>
                         <div className="info-text">

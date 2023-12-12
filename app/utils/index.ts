@@ -12,6 +12,8 @@ export enum backdropSize {
     small = 'w300',
     medium = 'w500',
     large = 'w780',
+    extraLarge = 'w1280',
+    original = 'original'
 }
 
 export enum posterSize {
