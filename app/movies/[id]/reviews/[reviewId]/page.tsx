@@ -1,21 +1,18 @@
 import React from 'react';
 import {Card, Flex} from "@radix-ui/themes";
+import ReviewForm from "@/app/movies/_components/ReviewForm";
+import {z} from "zod";
+import {postReviewSchema} from "@/app/validationSchemas";
+type ReviewData = z.infer<typeof postReviewSchema>
 interface Props {
-    params: {
-        id: string;
-    }
+
+    movieId:string;
+    review?: ReviewData
 }
-const ReviewPage = ({params}: Props) => {
+const ReviewPage = ({movieId, review}: Props) => {
     return (
         <div className='right-container'>
-            <Flex direction='column'>
-                <Card>
-                    {/* Header section */}
-                    <Flex direction='row'>
-                        <h1>Edit your review</h1>
-                    </Flex>
-                </Card>
-            </Flex>
+
         </div>
     );
 };

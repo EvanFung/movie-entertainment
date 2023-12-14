@@ -3,6 +3,7 @@ import {getServerSession} from "next-auth";
 import authOptions from "@/app/auth/authOptions";
 import prisma from "@/prisma/client";
 import {postReviewSchema} from "@/app/validationSchemas";
+//POST A REVIEW
 export async function POST(request: NextRequest,response: NextResponse) {
     const session = await getServerSession(authOptions);
     if(!session)
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest,response: NextResponse) {
             data: {
                 title,
                 body,
-                rating,
+                rating: rating | 1,
                 userId: session.user.id,
                 movieId,
             }
@@ -29,4 +30,14 @@ export async function POST(request: NextRequest,response: NextResponse) {
     }
 
     return NextResponse.json(newReview,{status: 201})
+}
+
+//GET ALL REVIEWS
+export async function GET(request: NextRequest,response: NextResponse) {
+    const reviews = await prisma.review.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+    return NextResponse.json(reviews);
 }
