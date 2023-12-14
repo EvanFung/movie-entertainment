@@ -39,13 +39,14 @@ const MovieDetailPage = ({params}: Props)  =>{
     }
     const movie: MovieDetail = data?.movie as MovieDetail;
     const casts: CastMember[]  = data?.crews.cast as CastMember[];
+    const reviews = data?.reviews;
     return (
         <div className='right-container'>
             <Flex direction='column' gap='5' className='p-8'>
                 <MovieOverviewContainer movie={movie} />
                 <CompanyContainer movie={movie} />
                 <CastContainer casts={casts} />
-                <ReviewContainer movieId={`${movie.id}`}/>
+                <ReviewContainer movieId={`${movie.id}`} reviews={reviews}/>
             </Flex>
         </div>
     );

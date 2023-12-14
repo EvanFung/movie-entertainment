@@ -1,28 +1,26 @@
 import React from 'react';
 import {Avatar, Badge, Card, Flex} from "@radix-ui/themes";
 import {InfoCircledIcon} from "@radix-ui/react-icons";
-import {Review} from "@prisma/client";
-import {convertDateTimeToXDaysAgo} from "@/app/utils";
-interface Props {
-    review:Review
-}
-const ReviewItem = ({review}: Props) => {
+import { formatDistance } from 'date-fns';
+import Review from "@/app/models/Review";
+import parse from 'html-react-parser';
+const ReviewItem = ({review}: any ) => {
     return (
-        <Card className='p-2'>
+        <Card className='p-2 mt-4'>
             <Flex direction='column' gap='2'>
                 <Flex direction='row' gap='3' justify='between'>
                     <Flex direction="row" gap='3'>
-                        <Avatar fallback={<InfoCircledIcon/>} src={'/images/avatar.jpeg'}  />
+                        <Avatar fallback={<InfoCircledIcon/>} src={`${review.user.image}`}  />
                         <Flex direction='column'>
-                            <p>{review.userId}</p>
-                            <p>{convertDateTimeToXDaysAgo(review.createdAt)}</p>
+                            <p>{review.user.name}</p>
+                            <p>{formatDistance(new Date(review.createdAt), new Date(), { addSuffix: true })}</p>
                         </Flex>
                     </Flex>
                     <Badge color='iris'>SEE MORE</Badge>
                 </Flex>
                 <Flex direction='column' gap='3'>
                     <h1 className='text-xl font-semibold'>{review.title}</h1>
-                    <p>{reviewsContent(review.body)}...</p>
+                    {parse(reviewsContent(review.body))}
                 </Flex>
             </Flex>
         </Card>

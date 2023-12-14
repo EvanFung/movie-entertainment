@@ -1,5 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import api from "@/app/utils/api"
+import prisma from "@/prisma/client";
 interface Props {
     params: {
         params: {
@@ -18,7 +19,24 @@ export async function GET(request: NextRequest, {params}: {
 
         // Get movie's crew
         const crews = await api.get(`/movie/${params.id}/credits?language=en-US`).then(res => res.data);
-        return NextResponse.json({ movie, crews });
+        const reviews = await prisma.review.findMany({
+            where:{
+                movieId: params.id
+            },
+            include: {
+                user: {
+                    select: {
+                        name: true,
+                        image: true,
+                        email:true,
+                    }
+                },
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+        return NextResponse.json({ movie, crews, reviews });
     } catch (error:any) {
         // Check if the error is a 404 (Not Found)
         if (error.response && error.response.status === 404) {

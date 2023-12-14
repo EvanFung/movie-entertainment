@@ -3,9 +3,11 @@ import {getServerSession} from "next-auth";
 import authOptions from "@/app/auth/authOptions";
 import prisma from "@/prisma/client";
 import {postReviewSchema} from "@/app/validationSchemas";
+import {useSearchParams} from "next/navigation";
 //POST A REVIEW
 export async function POST(request: NextRequest,response: NextResponse) {
     const session = await getServerSession(authOptions);
+
     if(!session)
         return NextResponse.json({},{status: 401})
     const reqBody = await request.json();
@@ -33,8 +35,17 @@ export async function POST(request: NextRequest,response: NextResponse) {
 }
 
 //GET ALL REVIEWS
-export async function GET(request: NextRequest,response: NextResponse) {
+export async function GET(request: NextRequest) {
     const reviews = await prisma.review.findMany({
+        include: {
+            user: {
+                select: {
+                    name: true,
+                    image: true,
+                    email:true,
+                }
+            },
+        },
         orderBy: {
             createdAt: 'desc'
         }

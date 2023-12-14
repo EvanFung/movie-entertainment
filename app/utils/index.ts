@@ -1,3 +1,5 @@
+
+
 // CONSTANTS
 export const TMDB_API_KEY = process.env.TMDB_API_KEY
 export const TMDB_ENDPOINT="https://api.themoviedb.org/3"
@@ -26,9 +28,3 @@ export enum posterSize {
     original = 'original'
 }
 
-export const convertDateTimeToXDaysAgo = (date:Date) => {
-    const currentDate = new Date();
-    const differenceInDays = Math.floor((currentDate.getTime() - date.getTime()) / (1000 * 3600 * 24));
-    const result = `${differenceInDays} days ago`;
-    return result;
-}
