@@ -23,7 +23,9 @@ const ReviewContainer =  ({movieId, reviews}: Props) => {
                 {
                     reviews.map((review: Review) => (
                         <ReviewItem review={review}
-                                    key={review.id}/>
+                                    key={review.id}
+                                    movieId={movieId}
+                        />
                     ))
                 }
             </Card>

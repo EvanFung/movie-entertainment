@@ -4,7 +4,12 @@ import {InfoCircledIcon} from "@radix-ui/react-icons";
 import { formatDistance } from 'date-fns';
 import Review from "@/app/models/Review";
 import parse from 'html-react-parser';
-const ReviewItem = ({review}: any ) => {
+import Link from "next/link";
+interface Props {
+    review: any;
+    movieId: string;
+}
+const ReviewItem = ({review, movieId}: Props ) => {
     return (
         <Card className='p-2 mt-4'>
             <Flex direction='column' gap='2'>
@@ -15,20 +20,21 @@ const ReviewItem = ({review}: any ) => {
                             <p>{review.user.name}</p>
                             <p>{formatDistance(new Date(review.createdAt), new Date(), { addSuffix: true })}</p>
                         </Flex>
+                        <Badge variant='surface' color='violet' size='2' radius='large'>{review.rating}</Badge>
                     </Flex>
-                    <Badge color='iris'>SEE MORE</Badge>
+                    <Badge color='iris'><Link href={`/movies/${movieId}/reviews/${review.id}`}>SEE MORE</Link></Badge>
                 </Flex>
                 <Flex direction='column' gap='3'>
                     <h1 className='text-xl font-semibold'>{review.title}</h1>
-                    {parse(reviewsContent(review.body))}
+                    <div className='flex flex-row overflow-hidden text-ellipsis'>{parse(review.body.substring(0,1500) + '...')}</div>
                 </Flex>
             </Flex>
         </Card>
     );
 };
-const reviewsContent = (review:string) => {
-    if(review.split(' ').length < 150) return review;
-    return review.split(' ').slice(0, 150).join(' ');
-}
+// const shortenContent = (review:string) => {
+//     if(review.split(' ').length < 150) return review;
+//      return review.split(' ').slice(0, 200).join(' ') + '...';
+// }
 
 export default ReviewItem;

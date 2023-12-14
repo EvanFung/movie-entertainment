@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {Card, Flex} from "@radix-ui/themes";
 import ReviewForm from "@/app/movies/_components/ReviewForm";
