@@ -18,7 +18,6 @@ export async function GET(request: NextRequest, {params}: {
 
         // Get movie's crew
         const crews = await api.get(`/movie/${params.id}/credits?language=en-US`).then(res => res.data);
-
         return NextResponse.json({ movie, crews });
     } catch (error:any) {
         // Check if the error is a 404 (Not Found)

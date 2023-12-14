@@ -7,7 +7,6 @@ import CastContainer from "@/app/movies/_components/CastContainer";
 import CompanyContainer from "@/app/movies/_components/CompanyContainer";
 import MovieOverviewContainer from "@/app/movies/_components/MovieOverviewContainer";
 import {CastMember, MovieDetail} from "@/app/models/MovieDetail";
-import api from "@/app/utils/api";
 import {useQuery} from "@tanstack/react-query";
 import Loader from "@/app/components/Loader";
 
@@ -43,10 +42,10 @@ const MovieDetailPage = ({params}: Props)  =>{
     return (
         <div className='right-container'>
             <Flex direction='column' gap='5' className='p-8'>
-                    <MovieOverviewContainer movie={movie} />
-                    <CompanyContainer movie={movie} />
-                    <CastContainer casts={casts} />
-                    <ReviewContainer movieId={`${movie.id}`}/>
+                <MovieOverviewContainer movie={movie} />
+                <CompanyContainer movie={movie} />
+                <CastContainer casts={casts} />
+                <ReviewContainer movieId={`${movie.id}`}/>
             </Flex>
         </div>
     );
