@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useMemo} from 'react';
 import CollectionHeader from "@/app/components/CollectionHeader";
 import {useQuery} from "@tanstack/react-query";
 import api from "@/app/utils/api";
@@ -20,7 +20,7 @@ const CollectionVideos = ({
     entertainmentType,
     collectionType,isTrending, endpoint,limit, queryKey}: Props) =>  {
 
-    const{data , error, isLoading} =  useQuery({
+    const{data , error, isLoading, isError} =  useQuery({
         queryKey: [queryKey],
         queryFn:() => api.get(endpoint).then(res =>res.data),
         staleTime: 60 * 1000 * 10,
@@ -29,7 +29,7 @@ const CollectionVideos = ({
     if(isLoading) {
         return <Loader/>
     }
-    if(error) {
+    if(isError) {
         return (
 
             <Callout.Root color='red' className='mb-5'>

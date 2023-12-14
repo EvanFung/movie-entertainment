@@ -25,3 +25,10 @@ export enum posterSize {
     extraExtraExtraLarge = 'w780',
     original = 'original'
 }
+
+export const convertDateTimeToXDaysAgo = (date:Date) => {
+    const currentDate = new Date();
+    const differenceInDays = Math.floor((currentDate.getTime() - date.getTime()) / (1000 * 3600 * 24));
+    const result = `${differenceInDays} days ago`;
+    return result;
+}

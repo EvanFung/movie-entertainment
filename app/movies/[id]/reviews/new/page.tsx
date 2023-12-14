@@ -17,7 +17,8 @@ const ReviewPage = ({params}: Props) => {
             <Flex direction='column' className='p-5 mx-auto my-auto'>
                 <Card size='5'>
                     {/* Header section */}
-                    <Flex direction='row' className='mb-5'>
+                    <Flex direction='row' className='mb-5' justify={"between"}>
+                        <a href={`/movies/${params.id}`}>Back</a>
                         <h1 className='text-2xl font-extrabold'>Write your review</h1>
                     </Flex>
                     <Flex direction='column' gap='5' className='max-w-screen-xl'>
@@ -35,7 +36,6 @@ const ReviewPage = ({params}: Props) => {
                                     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
                                     content_css:'dark',
                                     skin: 'oxide-dark',
-                                    height:600,
                                 }}
                                 initialValue=""
                                 onInit={(evt, editor) => editorRef.current = editor}
