@@ -5,7 +5,6 @@ import prisma from "@/prisma/client";
 import {postReviewSchema} from "@/app/validationSchemas";
 export async function POST(request: NextRequest,response: NextResponse) {
     const session = await getServerSession(authOptions);
-    console.log('Post review session',session);
     if(!session)
         return NextResponse.json({},{status: 401})
     const reqBody = await request.json();
@@ -14,15 +13,20 @@ export async function POST(request: NextRequest,response: NextResponse) {
     if(!validation.success) {
         return NextResponse.json(validation.error.format(),{status: 400})
     }
+    let newReview;
+    try {
+         newReview = await prisma.review.create({
+            data: {
+                title,
+                body,
+                rating,
+                userId: session.user.id,
+                movieId,
+            }
+        });
+    } catch (error:any) {
+        return NextResponse.json({error: error.message}, {status: 404});
+    }
 
-    const newReview = await prisma.review.create({
-        data: {
-            title,
-            body,
-            rating,
-            userId: session.user.id,
-            movieId,
-        }
-    });
     return NextResponse.json(newReview,{status: 201})
 }

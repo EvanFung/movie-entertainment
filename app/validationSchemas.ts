@@ -8,6 +8,7 @@ export const patchUserSchemas = z.object({
 });
 
 export const postReviewSchema = z.object({
+    id:z.string().optional(),
     rating:z.number().min(1, "Rating must be between 1 and 5").max(5).optional(),
     body:z.string().min(20, 'Body is required').max(65535).optional(),
     title:z.string().min(5, "Title is required").max(255).optional(),
