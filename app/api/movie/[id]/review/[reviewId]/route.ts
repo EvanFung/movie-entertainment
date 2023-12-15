@@ -38,10 +38,14 @@ export async function GET(request: NextRequest, {params}: Props) {
                             image: true,
                         }
                     }
+                },
+                orderBy: {
+                    createdAt: 'desc'
                 }
 
             }
-        }
+        },
+
     })
     if(!review)
         return NextResponse.json({error: 'Review not found'}, {status: 404})

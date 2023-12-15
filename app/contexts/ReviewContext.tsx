@@ -4,10 +4,9 @@ import {useQuery} from "@tanstack/react-query";
 import {useParams} from "next/navigation";
 import axios from "axios";
 import Loader from "@/app/components/Loader";
+import {useSession} from "next-auth/react";
 
-interface Group {
-    [key: string ]: Comment[];
-}
+
 export interface Comment {
     id: string;
     message: string;
@@ -20,7 +19,9 @@ export interface Comment {
         id: string;
         name: string;
         image: string;
-    }
+    },
+    likeCount: number;
+    likedByMe:false;
 }
 export interface Review {
     id:string;
@@ -61,9 +62,9 @@ export function ReviewProvider({ children }: { children: React.ReactNode }) {
     const {id, reviewId, } = useParams<{ id: string; reviewId:string; }>();
     const [comments, setComments] = useState<Comment[]>([]);
     const {isLoading, isError, data: review} = useQuery<Review>({
-        queryKey: ['review', id],
+        queryKey: ['review', id, reviewId],
         queryFn:() => axios.get('/api/movie/'+id+'/review/'+reviewId).then(res =>res.data),
-        staleTime: 60 * 1000 * 10,
+        staleTime:0, // need to be 0 to update the data immediately when page is refreshed
         retry: 0,
     });
     const commentsByParentId = useMemo<{ [key: string]: Comment[] }>(()=> {
@@ -75,7 +76,6 @@ export function ReviewProvider({ children }: { children: React.ReactNode }) {
         });
         return group;
     }, [comments]);
-    console.log(commentsByParentId)
     // {
     //     "1": [
     //     {
@@ -167,7 +167,7 @@ export function ReviewProvider({ children }: { children: React.ReactNode }) {
                     </div>
                 ): isError ? (
                     <div className='right-container justify-center items-center'>
-                        404 - Movie Not Found
+                        404 - Review Not Found
                     </div>
                 ) : (children)}
 

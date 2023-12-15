@@ -17,13 +17,15 @@ export async function POST(request: NextRequest, {params}: Props) {
         return NextResponse.json({},{status: 401})
     const {id, reviewId} = params;
     const reqBody = await request.json();
-    const { message} = reqBody;
+    const { message, parentId} = reqBody;
     const comment = await prisma.comment.create({
         data: {
             reviewId,
             userId: session.user.id,
             message,
+            parentId: parentId || null,
         }
     })
+    comment.user = session.user;
     return NextResponse.json(comment)
 }

@@ -8,7 +8,10 @@ import {postCommentSchema} from "@/app/validationSchemas";
 import {Comment} from '@/app/contexts/ReviewContext';
 import axios from "axios";
 import ErrorMessage from "@/app/components/ErrorMessage";
-const CommentForm = () => {
+interface Props {
+    parentId?: string;
+}
+const CommentForm = ({parentId}: Props) => {
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const {createLocalComment, review} = useReview();
     const [error, setError] = React.useState('');
@@ -20,6 +23,7 @@ const CommentForm = () => {
         try {
             setIsSubmitting(true);
             data.reviewId = review.id;
+            data.parentId = parentId || null;
             const newComment = await axios.post<Comment>('/api/movie/'+ review.movieId+'/review/'+review.id+'/comment',data);
             createLocalComment(newComment.data);
             setIsSubmitting(false);
@@ -41,11 +45,10 @@ const CommentForm = () => {
             <Flex direction='row' gap='2' align='center'>
                 <Flex direction='column' grow='1'>
                     <TextField.Root className='grow' autoFocus={true}>
-                        <TextField.Input style={{height:'100px'}} size='3' placeholder="What are your throughts?" {...register('message')} />
+                        <TextField.Input style={{height:'100px'}} size='3' placeholder="what are your thoughts?" {...register('message')} />
                     </TextField.Root>
                     <ErrorMessage>{errors.message?.message}</ErrorMessage>
                 </Flex>
-
                 <Button disabled={isSubmitting} style={{height: '100px'}}>Post{isSubmitting && <Spinner/>}</Button>
             </Flex>
         </form>
