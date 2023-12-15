@@ -1,10 +1,9 @@
 import {NextRequest, NextResponse} from "next/server";
 import {getServerSession} from "next-auth";
 import authOptions from "@/app/auth/authOptions";
-import prisma from "@/prisma/client";
 import {postReviewSchema} from "@/app/validationSchemas";
-import {useSearchParams} from "next/navigation";
-//POST A REVIEW
+import prisma from "@/prisma/client";
+
 export async function POST(request: NextRequest,response: NextResponse) {
     const session = await getServerSession(authOptions);
 
@@ -18,7 +17,7 @@ export async function POST(request: NextRequest,response: NextResponse) {
     }
     let newReview;
     try {
-         newReview = await prisma.review.create({
+        newReview = await prisma.review.create({
             data: {
                 title,
                 body,
@@ -32,23 +31,4 @@ export async function POST(request: NextRequest,response: NextResponse) {
     }
 
     return NextResponse.json(newReview,{status: 201})
-}
-
-//GET ALL REVIEWS
-export async function GET(request: NextRequest) {
-    const reviews = await prisma.review.findMany({
-        include: {
-            user: {
-                select: {
-                    name: true,
-                    image: true,
-                    email:true,
-                }
-            },
-        },
-        orderBy: {
-            createdAt: 'desc'
-        }
-    });
-    return NextResponse.json(reviews);
 }

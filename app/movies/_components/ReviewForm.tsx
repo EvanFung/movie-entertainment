@@ -33,10 +33,10 @@ const ReviewForm = ({params, review}: Props) => {
         try {
             setIsSubmitting(true);
             if(review) {
-                axios.patch('/api/review/'+review.id, data);
+                axios.patch('/api/movie/'+params.id+'/review/'+review.id, data);
             } else {
                 data.movieId = params.id;
-                await axios.post('/api/review', data);
+                await axios.post('/api/movie/'+params.id+'/review', data);
             }
             router.push('/movies/'+params.id);
             router.refresh();

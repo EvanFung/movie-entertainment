@@ -6,30 +6,31 @@ import axios from "axios";
 import Loader from "@/app/components/Loader";
 import ReviewItem from "@/app/movies/_components/ReviewItem";
 import Review from "@/app/models/Review";
+import {ReviewProvider} from "@/app/contexts/ReviewContext";
 interface Props {
     movieId:string;
     reviews:any;
 }
 const ReviewContainer =  ({movieId, reviews}: Props) => {
     return (
-        <Flex direction='column'>
-            <Card className='grow'>
-                <Flex direction='row' justify='between' className='p-5'>
-                    <h1 className='text-2xl font-extrabold mb-5'>Reviews</h1>
-                    <Flex direction='row'>
-                        <a href={`/movies/${movieId}/reviews/new`}><Button>Review this title</Button></a>
+            <Flex direction='column'>
+                <Card className='grow'>
+                    <Flex direction='row' justify='between' className='p-5'>
+                        <h1 className='text-2xl font-extrabold mb-5'>Reviews</h1>
+                        <Flex direction='row'>
+                            <a href={`/movies/${movieId}/reviews/new`}><Button>Review this title</Button></a>
+                        </Flex>
                     </Flex>
-                </Flex>
-                {
-                    reviews.map((review: Review) => (
-                        <ReviewItem review={review}
-                                    key={review.id}
-                                    movieId={movieId}
-                        />
-                    ))
-                }
-            </Card>
-        </Flex>
+                    {
+                        reviews.map((review: Review) => (
+                            <ReviewItem review={review}
+                                        key={review.id}
+                                        movieId={movieId}
+                            />
+                        ))
+                    }
+                </Card>
+            </Flex>
     );
 };
 

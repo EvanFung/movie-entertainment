@@ -1,13 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import api from "@/app/utils/api"
 import prisma from "@/prisma/client";
-interface Props {
-    params: {
-        params: {
-            id: string
-        }
-    }
-}
+
 export async function GET(request: NextRequest, {params}: {
     params: {
         id: string
