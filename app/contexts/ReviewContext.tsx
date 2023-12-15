@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react"
-import {Comment} from "@prisma/client";
+// import {Comment} from "@prisma/client";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "next/navigation";
 import axios from "axios";
@@ -8,7 +8,21 @@ import Loader from "@/app/components/Loader";
 interface Group {
     [key: string ]: Comment[];
 }
-interface Review {
+export interface Comment {
+    id: string;
+    message: string;
+    createdAt: Date;
+    updatedAt: Date;
+    reviewId: string;
+    userId: string;
+    parentId: string | null;
+    user: {
+        id: string;
+        name: string;
+        image: string;
+    }
+}
+export interface Review {
     id:string;
     title: string;
     body: string;

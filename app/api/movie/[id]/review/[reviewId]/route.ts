@@ -29,7 +29,18 @@ export async function GET(request: NextRequest, {params}: Props) {
                     image: true,
                 }
             },
-            comments:true
+            comments:{
+                include: {
+                    user: {
+                        select: {
+                            id:true,
+                            name:true,
+                            image: true,
+                        }
+                    }
+                }
+
+            }
         }
     })
     if(!review)

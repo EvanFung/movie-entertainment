@@ -15,3 +15,7 @@ export const postReviewSchema = z.object({
     userId:z.string().min(1, "UserId is required").max(255).optional(),
     movieId:z.string().min(1, "MovieId is required").max(255).optional(),
 });
+
+export const postCommentSchema = z.object({
+        message: z.string().min(1, "Message is required").max(255),
+})

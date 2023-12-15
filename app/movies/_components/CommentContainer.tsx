@@ -14,7 +14,14 @@ const CommentContainer = () => {
         <Card>
             <Flex direction='column' gap='4'>
                 <h1 className='font-bold text-xl'>Comments</h1>
-                <CommentItem />
+                {
+                    rootComments != null && rootComments.length > 0 &&  (
+                        rootComments.map(comment => (
+                            <CommentItem comment={comment} key={comment.id} />
+                        ))
+                    )
+
+                }
             </Flex>
         </Card>
     );
