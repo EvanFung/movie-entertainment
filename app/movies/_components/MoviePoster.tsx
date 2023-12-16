@@ -11,7 +11,7 @@ const MoviePoster = ({movie}: Props) => {
     return (
         <Card>
             <Flex>
-                <img src={`${Utils.TMDB_IMAGE_ENDPOINT}${Utils.posterSize.extraLarge}${movie.poster_path}`} style={{
+                <img className='justify-center' src={`${Utils.TMDB_IMAGE_ENDPOINT}${Utils.posterSize.extraLarge}${movie.poster_path}`} style={{
                     borderRadius: 'var(--radius-3)',
                 }} />
             </Flex>

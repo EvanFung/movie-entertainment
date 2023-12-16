@@ -14,15 +14,18 @@ const ReviewItem = ({review, movieId}: Props ) => {
         <Card className='p-2 mt-4'>
             <Flex direction='column' gap='2'>
                 <Flex direction='row' gap='3' justify='between'>
-                    <Flex direction="row" gap='3'>
-                        <Avatar fallback={<InfoCircledIcon/>} src={`${review.user.image}`}  />
-                        <Flex direction='column'>
-                            <p>{review.user.name}</p>
-                            <p>{formatDistance(new Date(review.createdAt), new Date(), { addSuffix: true })}</p>
+                    <Flex direction="row" gap='4' grow='1'>
+                            <Avatar fallback={<InfoCircledIcon/>} src={`${review.user.image}`}  />
+                            <Flex direction='column'>
+                                <p>{review.user.name}</p>
+                                <p>{formatDistance(new Date(review.createdAt), new Date(), { addSuffix: true })}</p>
                         </Flex>
-                        <Badge variant='surface' color='violet' size='2' radius='large'>{review.rating}</Badge>
+
                     </Flex>
-                    <Badge color='iris'><Link href={`/movies/${movieId}/reviews/${review.id}`}>SEE MORE</Link></Badge>
+                    <Flex gap='3'>
+                        <Badge variant='surface' color='violet' size='2' radius='large'>{review.rating}</Badge>
+                        <Badge color='iris'><Link href={`/movies/${movieId}/reviews/${review.id}`}>SEE MORE</Link></Badge>
+                    </Flex>
                 </Flex>
                 <Flex direction='column' gap='3'>
                     <h1 className='text-xl font-semibold'>{review.title}</h1>

@@ -8,7 +8,7 @@ interface Props {
 }
 const MovieOverviewContainer = ({movie}: Props) => {
     return (
-        <Flex direction='row' gap='4'>
+        <Flex direction='row' gap='4' className='flex-wrap sm:flex-nowrap'>
             <MoviePoster movie={movie} />
             <MovieDescription movie={movie}  />
         </Flex>
