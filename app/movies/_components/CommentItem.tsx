@@ -37,6 +37,7 @@ const CommentItem = ({comment}: Props) => {
     const onCommentLike =  async () =>{
         await mutation.mutateAsync()
     }
+    console.log(comment.likedByMe);
 
     return (
         <Card>
@@ -57,7 +58,7 @@ const CommentItem = ({comment}: Props) => {
             <Flex className='mr-2' direction='row' justify='end' gap='4'>
                 <p className='text-sm'>{comment.likeCount} likes</p>
                 <button disabled={mutation.isPending} onClick={onCommentLike}>
-                    <FaHeart />
+                    {comment.likedByMe ? <FaHeart className='text-red-500' /> : <FaRegHeart />}
                 </button>
                 {/*<button><FaShare /></button>*/}
                 <button onClick={() => setIsReplying(prev => !prev)}><FaCommentAlt /></button>

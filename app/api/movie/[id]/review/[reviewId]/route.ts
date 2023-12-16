@@ -66,7 +66,7 @@ export async function GET(request: NextRequest, {params}: Props) {
         comments: review.comments.map(comment => ({
             ...comment,
             likeCount: comment._count.likes, // Rename _count to likesCount
-            likeByMe: comment.likes.some(like => like.userId === session?.user.id),
+            likedByMe: comment.likes.some(like => like.userId === session?.user.id),
         })),
     };
 

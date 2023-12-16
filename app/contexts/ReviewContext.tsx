@@ -22,7 +22,7 @@ export interface Comment {
         image: string;
     },
     likeCount: number;
-    likedByMe:boolean | false;
+    likedByMe:boolean;
     _count: {
         likes: number | 0;
     }
@@ -86,39 +86,6 @@ export function ReviewProvider({ children }: { children: React.ReactNode }) {
         });
         return group;
     }, [comments]);
-    // {
-    //     "1": [
-    //     {
-    //         "id": "3",
-    //         "message": "this is child comment",
-    //         "createdAt": "2023-12-14T20:16:15.000Z",
-    //         "updatedAt": "2023-12-14T20:16:16.000Z",
-    //         "reviewId": "clq4p7ttr0019fmos284t1tuw",
-    //         "userId": "clq0h73n000065082pemzw2ex",
-    //         "parentId": "1"
-    //     }
-    // ],
-    //     "root": [
-    //     {
-    //         "id": "1",
-    //         "message": "this is root comment",
-    //         "createdAt": "2023-12-14T20:15:10.000Z",
-    //         "updatedAt": "2023-12-14T20:15:06.000Z",
-    //         "reviewId": "clq4p7ttr0019fmos284t1tuw",
-    //         "userId": "clq0h73n000065082pemzw2ex",
-    //         "parentId": null
-    //     },
-    //     {
-    //         "id": "2",
-    //         "message": "this is root comment",
-    //         "createdAt": "2023-12-14T20:15:47.000Z",
-    //         "updatedAt": "2023-12-14T20:15:49.000Z",
-    //         "reviewId": "clq4p7ttr0019fmos284t1tuw",
-    //         "userId": "clq0h73n000065082pemzw2ex",
-    //         "parentId": null
-    //     }
-    // ]
-    // }
 
     //initialize comments from pulling data from server
     useEffect(() => {
@@ -147,7 +114,6 @@ export function ReviewProvider({ children }: { children: React.ReactNode }) {
     };
 
     const toggleLocalCommentLike = (id: string, addLike: boolean): void => {
-        console.log(id);
         setComments(prevComments => {
                 return prevComments.map(comment => {
                     if (id === comment.id) {
