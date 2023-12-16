@@ -20,7 +20,7 @@ const CommentItem = ({comment}: Props) => {
     const [areChildrenHidden, setAreChildrenHidden] = useState(false)
     const [isReplying, setIsReplying] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
-    const {review, getReplies, toggleLocalCommentLike} = useReview()
+    const {review, getReplies, toggleLocalCommentLike, deleteLocalComment} = useReview()
     const childComments = getReplies(comment.id)
     const [error, setError] = useState('');
     const mutation = useMutation({
@@ -34,10 +34,25 @@ const CommentItem = ({comment}: Props) => {
         }
     });
 
+    const deleteMutation = useMutation({
+        mutationKey: ["deleteComment"],
+        mutationFn: () => axios.delete(`/api/movie/${review.movieId}/review/${review.id}/comment/${comment.id}`),
+        onSuccess: (data) => {
+            deleteLocalComment(comment.id);
+        },
+        onError: (error) => {
+            setError(error.message);
+        }
+
+    })
+
     const onCommentLike =  async () =>{
         await mutation.mutateAsync()
     }
-    console.log(comment.likedByMe);
+
+    const onCommentDelete = async () => {
+        await deleteMutation.mutateAsync();
+    }
 
     return (
         <Card>
@@ -62,7 +77,7 @@ const CommentItem = ({comment}: Props) => {
                 </button>
                 {/*<button><FaShare /></button>*/}
                 <button onClick={() => setIsReplying(prev => !prev)}><FaCommentAlt /></button>
-                {session?.user.id === comment.userId && (<button><FaTrashAlt /></button>)}
+                {session?.user.id === comment.userId && (<button onClick={onCommentDelete}><FaTrashAlt /></button>)}
             </Flex>
             {isReplying && (
                 <div className='mt-2'>
