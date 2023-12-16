@@ -1,20 +1,14 @@
 'use client'
 import React from 'react';
-import {Avatar, Badge, Button, Card, Flex, TextField} from "@radix-ui/themes";
-import ReviewForm from "@/app/movies/_components/ReviewForm";
+import {Card, Flex} from "@radix-ui/themes";
 import {z} from "zod";
 import {postReviewSchema} from "@/app/validationSchemas";
-import {InfoCircledIcon, MagnifyingGlassIcon} from "@radix-ui/react-icons";
-import {formatDistance} from "date-fns";
-import Link from "next/link";
-import { FaHeart, FaShare, FaCommentAlt,FaTrashAlt} from "react-icons/fa";
-import CommentList from "@/app/movies/_components/CommentList";
-import {ReviewProvider, useReview} from "@/app/contexts/ReviewContext";
+import {ReviewProvider} from "@/app/contexts/ReviewContext";
 import CommentForm from "@/app/movies/_components/CommentForm";
 import ReviewBody from "@/app/movies/_components/ReviewBody";
 import ReviewHeader from "@/app/movies/_components/ReviewHeader";
 import CommentContainer from "@/app/movies/_components/CommentContainer";
-type ReviewData = z.infer<typeof postReviewSchema>
+
 interface Props {
     params: {
         id: string;

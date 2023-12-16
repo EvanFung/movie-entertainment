@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useMemo, useState } from "react"
+'use client'
+import React, { useContext, useEffect, useMemo, useState, createServerContext } from "react"
 // import {Comment} from "@prisma/client";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "next/navigation";
@@ -21,7 +22,15 @@ export interface Comment {
         image: string;
     },
     likeCount: number;
-    likedByMe:false;
+    likedByMe:boolean | false;
+    _count: {
+        likes: number | 0;
+    }
+    likes: Like[];
+}
+export interface Like {
+    userId:string;
+    commentId:string;
 }
 export interface Review {
     id:string;
@@ -45,7 +54,7 @@ interface ContextValue {
     createLocalComment: (comment: Comment) => void;
     updateLocalComment: (id: string, message: string) => void;
     deleteLocalComment: (id: string) => void;
-    // toggleLocalCommentLike: (id: string, addLike: boolean) => void;
+    toggleLocalCommentLike: (id: string, addLike: boolean) => void;
 }
 
 const Context = React.createContext<ContextValue | null>(null);
@@ -67,6 +76,7 @@ export function ReviewProvider({ children }: { children: React.ReactNode }) {
         staleTime:0, // need to be 0 to update the data immediately when page is refreshed
         retry: 0,
     });
+    const {data: session} = useSession();
     const commentsByParentId = useMemo<{ [key: string]: Comment[] }>(()=> {
         const group: { [key: string]: Comment[] } = {};
         comments.forEach(comment => {
@@ -136,18 +146,20 @@ export function ReviewProvider({ children }: { children: React.ReactNode }) {
         setComments(prevComments => prevComments.filter(comment => comment.id !== id));
     };
 
-    // const toggleLocalCommentLike = (id: string, addLike: boolean): void => {
-    //     setComments(prevComments =>
-    //         prevComments.map(comment => {
-    //             if (id === comment.id) {
-    //                 return addLike
-    //                     ? { ...comment, likeCount: comment.likeCount + 1, likedByMe: true }
-    //                     : { ...comment, likeCount: comment.likeCount - 1, likedByMe: false };
-    //             }
-    //             return comment;
-    //         }),
-    //     );
-    // };
+    const toggleLocalCommentLike = (id: string, addLike: boolean): void => {
+        console.log(id);
+        setComments(prevComments => {
+                return prevComments.map(comment => {
+                    if (id === comment.id) {
+                        return addLike
+                            ? {...comment, likeCount: comment.likeCount + 1, likedByMe: true}
+                            : {...comment, likeCount: comment.likeCount -1, likedByMe: false};
+                    }
+                    return comment;
+                });
+            },
+        );
+    };
 
     return (
         <Context.Provider value={
@@ -158,6 +170,7 @@ export function ReviewProvider({ children }: { children: React.ReactNode }) {
                 createLocalComment: createLocalComment,
                 updateLocalComment: updateLocalComment,
                 deleteLocalComment: deleteLocalComment,
+                toggleLocalCommentLike: toggleLocalCommentLike,
             }
         }>
             {isLoading ?

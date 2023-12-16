@@ -17,5 +17,5 @@ export const postReviewSchema = z.object({
 });
 
 export const postCommentSchema = z.object({
-        message: z.string().min(1, "Message is required").max(255),
+        message: z.string().min(1, "Message is required").max(65535),
 })

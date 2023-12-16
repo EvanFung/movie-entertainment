@@ -10,10 +10,25 @@ interface Props {
     }
 }
 
+const COMMENT_SELECT_FIELDS = {
+    id: true,
+    message: true,
+    parentId: true,
+    createdAt: true,
+    user: {
+        select: {
+            id: true,
+            name: true,
+            image: true,
+        },
+    },
+    likes: true
+}
+
 // api/movie/[id]/review/[reviewId]
 // get review by id
 export async function GET(request: NextRequest, {params}: Props) {
-    // const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
     // if(!session)
     //     return NextResponse.json({},{status: 401})
     const {id, reviewId} = params;
@@ -30,18 +45,13 @@ export async function GET(request: NextRequest, {params}: Props) {
                 }
             },
             comments:{
-                include: {
-                    user: {
-                        select: {
-                            id:true,
-                            name:true,
-                            image: true,
-                        }
-                    }
-                },
                 orderBy: {
                     createdAt: 'desc'
-                }
+                },
+                select: {
+                    ...COMMENT_SELECT_FIELDS,
+                    _count: { select: { likes: true } },
+                },
 
             }
         },
@@ -49,5 +59,16 @@ export async function GET(request: NextRequest, {params}: Props) {
     })
     if(!review)
         return NextResponse.json({error: 'Review not found'}, {status: 404})
-    return NextResponse.json(review)
+
+    // Renaming the _count attribute for each comment
+    const modifiedReview = {
+        ...review,
+        comments: review.comments.map(comment => ({
+            ...comment,
+            likeCount: comment._count.likes, // Rename _count to likesCount
+            likeByMe: comment.likes.some(like => like.userId === session?.user.id),
+        })),
+    };
+
+    return NextResponse.json(modifiedReview)
 }

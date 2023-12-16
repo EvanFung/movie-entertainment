@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import CommentList from "@/app/movies/_components/CommentList";
 import {useReview} from "@/app/contexts/ReviewContext";

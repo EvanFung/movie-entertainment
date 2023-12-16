@@ -1,5 +1,6 @@
+'use client'
 import React, {useState} from 'react';
-import {Button, Callout, Flex, TextField} from "@radix-ui/themes";
+import {Button, Callout, Flex, TextArea, TextField} from "@radix-ui/themes";
 import Spinner from "@/app/components/Spinner";
 import {useReview} from "@/app/contexts/ReviewContext";
 import {useForm} from "react-hook-form";
@@ -44,9 +45,7 @@ const CommentForm = ({parentId}: Props) => {
             )}
             <Flex direction='row' gap='2' align='center'>
                 <Flex direction='column' grow='1'>
-                    <TextField.Root className='grow' autoFocus={true}>
-                        <TextField.Input style={{height:'100px'}} size='3' placeholder="what are your thoughts?" {...register('message')} />
-                    </TextField.Root>
+                        <TextArea className='grow' style={{height:'100px'}} size='3' placeholder="what are your thoughts?" {...register('message')} />
                     <ErrorMessage>{errors.message?.message}</ErrorMessage>
                 </Flex>
                 <Button disabled={isSubmitting} style={{height: '100px'}}>Post{isSubmitting && <Spinner/>}</Button>

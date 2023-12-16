@@ -21,12 +21,12 @@ const TrendVideoCard = ({movies} : {movies: Movie[]}) => {
                     </div>
                     <div className={'info-trending'}>
                         <div className="info-text">
-                            <p>{new Date(movie.release_date).getFullYear()}</p>
+                            <p>{new Date(movie.release_date ? movie.release_date : movie.first_air_date).getFullYear()}</p>
                             <div className="info-detail">
                                 <p>{Math.round(movie.vote_average *100)/100}</p>
                             </div>
                         </div>
-                        <h2 className="movie-title">{movie.title}</h2>
+                        <h2 className="movie-title">{movie.title ? movie.title : movie.name}</h2>
                     </div>
                 </div>
             ))}

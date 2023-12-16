@@ -26,6 +26,8 @@ export async function POST(request: NextRequest, {params}: Props) {
             parentId: parentId || null,
         }
     })
-    comment.user = session.user;
-    return NextResponse.json(comment)
+    return NextResponse.json({
+        ...comment,
+        user: session.user
+    })
 }
