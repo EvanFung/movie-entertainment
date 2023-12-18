@@ -6,15 +6,14 @@ import {Card, Flex} from "@radix-ui/themes";
 import {postReviewSchema} from "@/app/validationSchemas";
 import ReviewForm from "@/app/movies/_components/ReviewForm";
 
-type ReviewData = z.infer<typeof postReviewSchema>
+// type ReviewData = z.infer<typeof postReviewSchema>
 
 interface Props {
     params: {
         id: string;
     },
-    review?: ReviewData
 }
-const NewReviewPage = ({params, review}: Props) => {
+const NewReviewPage = ({params}: Props) => {
 
     return (
         <div className='right-container'>

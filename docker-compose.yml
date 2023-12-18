@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
+    command: >
+      sh -c "
+      until nc -z db 3306; do
+        echo 'Waiting for the DB to be ready...'
+        sleep 1
+      done;
+      npx prisma migrate deploy;
+      npm run dev;
+      "
+  db:
+    image: mysql:5.7
+    ports:
+      - "3307:3306"
+    env_file:
+      - ./.env
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: entertainment
+      MYSQL_PASSWORD: admin
+
+volumes:
+  mysql_data:

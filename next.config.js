@@ -9,6 +9,7 @@ const nextConfig = {
     images: {
         domains: ['source.unsplash.com', 'image.tmdb.org'],
     },
+    output: 'standalone',
 }
 
 module.exports = nextConfig

@@ -5,23 +5,19 @@ import ReviewForm from "@/app/movies/_components/ReviewForm";
 import {z} from "zod";
 import {postReviewSchema} from "@/app/validationSchemas";
 type ReviewData = z.infer<typeof postReviewSchema>
-interface Props {
 
-    movieId:string;
-    review?: ReviewData
-}
-const EditReviewPage = ({movieId, review}: Props) => {
+const EditReviewPage = () => {
     return (
         <div className='right-container'>
             <Flex direction='column' className='p-5 mx-auto my-auto'>
                 <Card size='5'>
                     {/* Header section */}
                     <Flex direction='row' className='mb-5' justify={"between"}>
-                        <a href={`/movies/${movieId}`}>Back</a>
+                        <a href={`#`}>Back</a>
                         <h1 className='text-2xl font-extrabold'>Edit your review</h1>
                     </Flex>
                     <Flex direction='column' gap='5' className='max-w-screen-xl'>
-                        <ReviewForm params={{id: movieId}} review={review} />
+                        {/*<ReviewForm params={{id: movieId}} review={review} />*/}
                     </Flex>
                 </Card>
             </Flex>

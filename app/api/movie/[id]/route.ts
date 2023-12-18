@@ -36,8 +36,10 @@ export async function GET(request: NextRequest, {params}: {
         if (error.response && error.response.status === 404) {
             return NextResponse.json({error: 'Movie not found'}, {status: 404});
         } else {
+
             // Handle other types of errors (e.g., network issues, server errors)
-            return NextResponse.json({ error: "An error occurred" }, {status: 500});
+            // return NextResponse.json({ error: "An error occurred" }, {status: 500});
+            return NextResponse.json({ error: error.message}, {status: 500});
         }
     }
 }

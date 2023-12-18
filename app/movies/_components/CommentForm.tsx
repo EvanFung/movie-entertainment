@@ -9,10 +9,14 @@ import {postCommentSchema} from "@/app/validationSchemas";
 import {Comment} from '@/app/contexts/ReviewContext';
 import axios from "axios";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import {useRouter} from "next/navigation";
+import {useSession} from "next-auth/react";
 interface Props {
     parentId?: string;
 }
 const CommentForm = ({parentId}: Props) => {
+    const router = useRouter();
+    const {status, data: session} = useSession();
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const {createLocalComment, review} = useReview();
     const [error, setError] = React.useState('');
@@ -22,6 +26,7 @@ const CommentForm = ({parentId}: Props) => {
     });
     const onSubmit = handleSubmit(async (data) => {
         try {
+            status === 'unauthenticated' && router.push('/api/auth/signin');
             setIsSubmitting(true);
             data.reviewId = review.id;
             data.parentId = parentId || null;

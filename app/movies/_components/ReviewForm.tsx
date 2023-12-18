@@ -12,6 +12,7 @@ import {postReviewSchema} from "@/app/validationSchemas";
 import {Editor as TinyMCEEditor} from "tinymce";
 import axios from "axios";
 import {z} from "zod";
+import {useSession} from "next-auth/react";
 type ReviewData = z.infer<typeof postReviewSchema>
 
 interface Props {
@@ -25,11 +26,13 @@ const ReviewForm = ({params, review}: Props) => {
     const {register, control, handleSubmit, formState: {errors}} = useForm<ReviewData>({
         resolver: zodResolver(postReviewSchema)
     });
+    const {status, data: session} = useSession();
     const editorRef = useRef<TinyMCEEditor | null>(null);
     const [error, setError] = React.useState('');
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const onSubmit = handleSubmit(async (data) => {
         console.log(data.rating);
+        status === 'unauthenticated' && router.push('/api/auth/signin');
         try {
             setIsSubmitting(true);
             if(review) {
