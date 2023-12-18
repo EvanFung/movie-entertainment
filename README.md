@@ -53,7 +53,7 @@ My workaround is simple, just add !important at the end of the radix-theme css f
 3. In Next.js, we should use as much as possible SSR as it is more SEO friendly. However, there are many cases we need to use client-side rendering, such as if we want to useContext to pass data to the child component, but sadly it's not supported in SSR.
 This is because SSR have no React state, and context. I need to pull data from external API which required authentication in the header, so I need to use client side rendering. I'm still thinking a better way to refactor the code to use SSR.
  - There are 2 workarounds for this:
- - Use getInitialProps to fetch data from the API, then pass the data to the child component as props.
+ - Use getServerSideProps to fetch data from the API, then pass the data to the child component as props.
  - Render providers as deep as possible in the component tree, it easier for Next.js to optimize the static parts of your components.
 
 4. Nested comment module, the data structure should use self-referential table.
