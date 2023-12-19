@@ -456,8 +456,9 @@ body {
     .nav-menu {
         height:5rem;
         width:100%;
-        position: fixed;
-        top: 92%;
+        position: initial;
+        /*position: fixed;*/
+        /*top: 92%;*/
         align-items: center;
         justify-content: center;
         background: var(--cDark);

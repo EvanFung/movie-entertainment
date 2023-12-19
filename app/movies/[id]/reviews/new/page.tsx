@@ -22,7 +22,7 @@ const NewReviewPage = ({params}: Props) => {
                     {/* Header section */}
                     <Flex direction='row' className='mb-5' justify={"between"}>
                         <a href={`/movies/${params.id}`}>Back</a>
-                        <h1 className='text-2xl font-extrabold'>Write your review</h1>
+                        <h1 className='text-sm sm:text-2xl font-extrabold'>Write your review</h1>
                     </Flex>
                     <Flex direction='column' gap='5' className='max-w-screen-xl'>
                         <ReviewForm params={{id: params.id}} />

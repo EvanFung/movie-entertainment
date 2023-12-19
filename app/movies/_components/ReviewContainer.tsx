@@ -16,9 +16,9 @@ const ReviewContainer =  ({movieId, reviews}: Props) => {
             <Flex direction='column'>
                 <Card className='grow'>
                     <Flex direction='row' justify='between' className='p-5'>
-                        <h1 className='text-2xl font-extrabold mb-5'>Reviews</h1>
+                        <h1 className='text-sm  sm:text-2xl font-extrabold mb-5'>Reviews</h1>
                         <Flex direction='row'>
-                            <a href={`/movies/${movieId}/reviews/new`}><Button>Review this title</Button></a>
+                            <a href={`/movies/${movieId}/reviews/new`}><Button size='1'>Review this title</Button></a>
                         </Flex>
                     </Flex>
                     {
