@@ -20,11 +20,10 @@ const ReviewItem = ({review, movieId}: Props ) => {
                                 <p>{review.user.name}</p>
                                 <p>{formatDistance(new Date(review.createdAt), new Date(), { addSuffix: true })}</p>
                         </Flex>
-
+                        <Badge variant='soft' color='violet' size='1'>{review.rating}</Badge>
                     </Flex>
                     <Flex gap='3'>
-                        <Badge variant='surface' color='violet' size='2' radius='large'>{review.rating}</Badge>
-                        <Badge color='iris'><Link href={`/movies/${movieId}/reviews/${review.id}`}>SEE MORE</Link></Badge>
+                        <Link href={`/movies/${movieId}/reviews/${review.id}`}><Badge size='1' style={{cursor:'pointer'}} color='iris'>SEE MORE</Badge></Link>
                     </Flex>
                 </Flex>
                 <Flex direction='column' gap='3'>
