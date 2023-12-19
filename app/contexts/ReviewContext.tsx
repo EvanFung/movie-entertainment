@@ -21,7 +21,7 @@ export interface Comment {
         name: string;
         image: string;
     },
-    likeCount: number;
+    likeCount: number | 0;
     likedByMe:boolean;
     _count: {
         likes: number | 0;
