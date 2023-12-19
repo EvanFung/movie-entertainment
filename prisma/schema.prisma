@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Account {
@@ -87,7 +88,7 @@ model Comment {
 
   // New fields for nested comments
   parentId String?
-  parent   Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  parent   Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies  Comment[]     @relation("CommentReplies")
   likes    CommentLike[]
 }
@@ -95,7 +96,7 @@ model Comment {
 model CommentLike {
   User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   commentId String
 
   @@id([userId, commentId])
